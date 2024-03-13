@@ -1,0 +1,58 @@
+a {
+    font-size:14px;
+    font-weight:700
+  }
+  .superNav {
+    font-size:13px;
+  }
+  .form-control {
+    outline:none !important;
+    box-shadow: none !important;
+  }
+  @media screen and (max-width:540px){
+    .centerOnMobile {
+      text-align:center
+    }
+  }
+
+.corSearch{
+    --bs-btn-color: #000;
+  --bs-btn-bg: #75b5ff;
+  --bs-btn-border-color: #75b5ff;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #75b5ff;
+  --bs-btn-hover-border-color: #75b5ff;
+  --bs-btn-focus-shadow-rgb: 217, 164, 6;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #75b5ff;
+  --bs-btn-active-border-color: #75b5ff;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #75b5ff;
+  --bs-btn-disabled-border-color: #75b5ff;
+}
+
+.centroSearch {
+    --bs-bg-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    background-color: #75b5ff;
+  }
+
+  .border-warningg {
+    --bs-border-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    border-color: #75b5ff;
+  }
+
+.navbar-brand img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.navbar {
+  padding: 0 !important;
+}
+
+.nav-item a i {
+  font-size: 35px !important;
+}
