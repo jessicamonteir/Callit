@@ -138,7 +138,7 @@ img {
 /*HERO*/
 
 #hero{
-  background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(../Callit/Images/HomePage/house-1867187_640.jpg);
+  background: linear-gradient(rgba(var(--c-brand-rgb), 0.507), rgba(var(--c-brand-rgb), 0.438)), url(/Images/HomePage/house-1867187_640.jpg);
   background-position: center;
   background-size: cover;
 }
@@ -218,7 +218,7 @@ img {
 /*Contador*/
 
 #counter{
-  background: linear-gradient(rgba(var(--c-brand-rgb2), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(../Callit/Images/HomePage/Workers.png);
+  background: linear-gradient(rgba(var(--c-brand-rgb2), 0.8), rgba(var(--c-brand-rgb), 0.8)), url(/Images/HomePage/Workers.png);
   background-position: center;
   background-size: cover;
 }
@@ -288,7 +288,7 @@ img {
 
 /*Footer*/
 footer{
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 footer-top{
@@ -367,5 +367,5 @@ footer .line{
 }
 
 a{
-  outline: none;
+  text-decoration: none;
 }
