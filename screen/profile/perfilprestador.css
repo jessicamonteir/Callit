@@ -91,7 +91,7 @@
     font-weight: 600;
     color: #0062cc;
 }
-a:link, a:visited, a:hover, a:active {
+.profile-edit-btn:visited {
     text-decoration: none;
   }
   .chatbox {
@@ -193,8 +193,152 @@ a:link, a:visited, a:hover, a:active {
 }
 .chatbox__button button{
     border: none;
-    background-color: white;
+    background-color: inherit;
     margin-left:200px ;
 }
+.navegacao a {
+    font-size:14px;
+    font-weight:700
+  }
+  .superNav {
+    font-size:13px;
+  }
+  .form-control {
+    outline:none !important;
+    box-shadow: none;
+  }
+  @media screen and (max-width:540px){
+    .centerOnMobile {
+      text-align:center
+    }
+  }
+
+.corSearch{
+    --bs-btn-color: #000;
+  --bs-btn-bg: #75b5ff;
+  --bs-btn-border-color: #9fccff;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #9fccff;
+  --bs-btn-hover-border-color: #9fccff;
+  --bs-btn-focus-shadow-rgb: 217, 164, 6;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #75b5ff;
+  --bs-btn-active-border-color: #75b5ff;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #75b5ff;
+  --bs-btn-disabled-border-color: #75b5ff;
+}
+
+.centroSearch {
+    --bs-bg-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    background-color: #75b5ff;
+  }
+
+  .border-warningg {
+    --bs-border-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    border-color: #75b5ff;
+  }
+
+.navbar-brand img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.navbar {
+  padding: 0 !important;
+}
+
+.nav-item a i {
+  font-size: 35px !important;
+}
+
+.fa-circle-user{
+  color: #75b5ff;
+}
+footer{
+    padding-top: 100px;
+  }
+  
+  footer-top{
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  footer li,
+  footer p,
+  footer a{
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  footer ul{
+    list-style: none;
+    padding: 0;
+  }
+  
+  footer .line{
+    width: 40px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .logoFotter{
+    align-items: top;
+    align-items: left;
+    height: 100px;
+    width: Auto;
+  }
+  
+  .social-icons a{
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+  }
+  
+  .social-icons a:hover{
+    background-color: var(--c-brand);
+    color: white;
+    transition: var(--transition);
+  }
+  
+  /*SWIPER*/
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .swiper {
+    width: 100%;
+    margin: 20px auto;
+  }
+  
+  a{
+    outline: none;
+  }
 
 
