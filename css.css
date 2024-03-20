@@ -288,7 +288,7 @@ img {
 
 /*Footer*/
 footer{
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 footer-top{
@@ -367,5 +367,5 @@ footer .line{
 }
 
 a{
-  outline: none;
+  text-decoration: none;
 }
