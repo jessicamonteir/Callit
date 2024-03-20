@@ -381,3 +381,10 @@ footer{
     margin: auto;
     border-radius: 0;
   }
+
+  a{
+    outline: inherit;
+    background-color: inherit;
+    color: inherit;
+    text-decoration: inherit;
+  }
