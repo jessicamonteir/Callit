@@ -221,7 +221,7 @@ body {
     transform: translateX(-50%) translateY(50%);
 }
 
-.ri-star-fill, .ri-star-half-fill{
+.ri-star-fill, .ri-star-half-fill .ri-star-line{
     -webkit-text-stroke: 0.5px var(--c-dark);
 }
 /*END OF  ICONS*/
