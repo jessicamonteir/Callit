@@ -1,0 +1,363 @@
+/*NAV*/
+
+a {
+    font-size:14px;
+    font-weight:700
+  }
+  .superNav {
+    font-size:13px;
+  }
+  .form-control {
+    outline:none !important;
+    box-shadow: none !important;
+  }
+  @media screen and (max-width:540px){
+    .centerOnMobile {
+      text-align:center
+    }
+  }
+
+.corSearch{
+    --bs-btn-color: #000;
+  --bs-btn-bg: #75b5ff;
+  --bs-btn-border-color: #9fccff;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #9fccff;
+  --bs-btn-hover-border-color: #9fccff;
+  --bs-btn-focus-shadow-rgb: 217, 164, 6;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #75b5ff;
+  --bs-btn-active-border-color: #75b5ff;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #75b5ff;
+  --bs-btn-disabled-border-color: #75b5ff;
+}
+
+.centroSearch {
+    --bs-bg-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    background-color: #75b5ff;
+  }
+
+  .border-warningg {
+    --bs-border-opacity: 1;
+    --bs-btn-hover-border-color: #c875ff;
+    border-color: #75b5ff;
+  }
+
+.navbar-brand img{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.navbar {
+  padding: 0 !important;
+}
+
+.nav-item a i {
+  font-size: 35px !important;
+}
+
+.fa-circle-user{
+    color: #75b5ff;
+  }
+
+/*SERVICES*/
+
+:root {
+    --primary: white;
+    --light: #F3F3F3;
+    --dark: 	#686868;
+    --c-dark: #212529;
+  --c-brand:#75b5ff;
+  --c-brand-light:#9fccff;
+  --c-brand-rgb:89, 138, 195;
+  --c-brand-rgb2:66,154,255;
+  --c-body: #727272;
+  --font-base: "ClashDisplay", sans-serif;
+  --box-shadow: 0px 15px 25px rgba(0,0,0,0.1);
+  --transition: all 0.5s ease;
+  }
+  
+  html, body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary);
+    color: #75b5ff;
+    font-family: "ClashDisplay", sans-serif;
+    box-sizing: border-box;
+    line-height: 1.4;
+  }
+  
+  .box img {
+    max-width: 212px;
+    aspect-ratio: 2;
+  }
+  
+  h1 {
+    padding-top: 60px;  
+  }
+  
+  .wrapper {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* HEADER */
+  header {
+    padding: 20px 20px 0 20px;
+    position: fixed;
+    top: 0;
+    display: grid;  
+    grid-gap:5px;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas: 
+     "nt mn mn sb . . . "; 
+    background-color: var(--primary);
+    width: 100%;
+    margin-bottom: 0px;  
+  }
+  
+  .netflixLogo {
+    grid-area: nt;
+    object-fit: cover;
+    width: 100px;
+    max-height: 100%;
+    
+    padding-left: 30px;
+    padding-top: 0px;  
+  }
+  
+  .netflixLogo img {  
+    height: 35px;     
+  }
+  
+  #logo {
+    color: #E50914;  
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  
+  .main-nav {
+    grid-area: mn;
+    padding: 0 30px 0 20px;
+  }
+  
+  .main-nav a {
+    color: var(--light);
+    text-decoration: none;
+    margin: 5px;  
+  }
+  
+  .main-nav a:hover {
+    color: var(--dark);
+  }
+  
+  .sub-nav {
+    grid-area: sb;
+    padding: 0 40px 0 40px;
+  }
+  
+  .sub-nav a {
+    color: var(--light);
+    text-decoration: none;
+    margin: 5px;
+  }
+  
+  .sub-nav a:hover {
+    color: var(--dark);
+  }
+  
+  
+  /* MAIN CONTIANER */
+  .main-container {
+    padding: 50px;
+  }
+  
+  .box {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(6, minmax(100px, 1fr));
+  }
+  
+  .box a {
+    transition: transform .3s;  
+  }
+  
+  .box a:hover {
+    transition: transform .3s;
+    -ms-transform: scale(1.4);
+    -webkit-transform: scale(1.4);  
+    transform: scale(1.4);
+  }
+  
+  .box img {
+    border-radius: 2px;
+  }
+  
+  /* LINKS */
+  .link {
+    padding: 50px;
+  }
+  
+  .sub-links ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .sub-links a {
+    color: var(--dark);
+    text-decoration: none;
+  }
+  
+  .sub-links a:hover {
+    color: var(--dark);
+    text-decoration: underline;
+  }
+  
+  .logos a{
+    padding: 10px;
+  }
+  
+  .logo {
+    color: var(--dark);
+  }
+  
+  
+  /* FOOTER */
+  footer {
+    padding: 20px;
+    text-align: center;
+    color: var(--dark);
+    margin: 10px;
+  }
+  
+  /* MEDIA QUERIES */
+  
+  @media(max-width: 900px) {
+  
+    header {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: 
+      "nt nt nt  .  .  . sb . . . "
+      "mn mn mn mn mn mn  mn mn mn mn";
+    }
+  
+    .box {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(4, minmax(100px, 1fr));
+    }
+  
+  }
+  
+  @media(max-width: 700px) {
+  
+    header {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: 
+      "nt nt nt  .  .  . sb . . . "
+      "mn mn mn mn mn mn  mn mn mn mn";
+    }
+  
+    .box {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+    }
+  
+    .sub-links ul {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+     
+  }
+  
+  @media(max-width: 500px) {
+  
+    .wrapper {
+      font-size: 15px;
+    }
+  
+    header {
+      margin: 0;
+      padding: 20px 0 0 0;
+      position: static;
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-areas: 
+      "nt"    
+      "mn"
+      "sb";
+      text-align: center;
+    }
+  
+    .netflixLogo {
+      max-width: 100%;
+      margin: auto;
+      padding-right: 20px;
+    }
+  
+    .main-nav {
+      display: grid;
+      grid-gap: 0px;
+      grid-template-columns: repeat(1, 1fr);
+      text-align: center;
+    }
+  
+    h1 {
+      text-align: center;
+      font-size: 18px;
+    }
+  
+   
+  
+    .box {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(1, 1fr);
+      text-align: center;    
+    }
+  
+    .box a:hover {
+      transition: transform .3s;
+      -ms-transform: scale(1);
+      -webkit-transform: scale(1);  
+      transform: scale(1.2);
+    }
+  
+    .logos {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(2, 1fr);
+      text-align: center;
+    }
+  
+    .sub-links ul {
+      display: grid;
+      grid-gap: 20px;
+      grid-template-columns: repeat(1, 1fr);
+      text-align: center;
+      font-size: 15px;
+    }
+  }
+
+  .line{
+    width: 60px;
+    height: 4px;
+    background-color: var(--c-brand);
+    margin: 16px auto 24px auto;
+  }
