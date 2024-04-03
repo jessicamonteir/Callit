@@ -1,3 +1,6 @@
+<?php 
+  session_start();
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -20,7 +23,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="main.html"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -38,18 +41,18 @@
             </div>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="main.html">Home</a>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="main.php">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/services/services.html">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/login/login.html">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/login/login.php">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
               </li>
@@ -67,7 +70,7 @@
               <h1 class="text-uppercase text-white fw-semibold display-1" data-aos="fade-right" data-aos-delay="60">Bem vindo à Callit!</h1>
               <h5 class="text-white mt-3 mb-4"data-aos="fade-left" data-aos-delay="60">Plataforma Freelancer para trabalhos domésticos.</h5>
               <div data-aos="fade-up" data-aos-delay="60">
-                <a href="screen/login/login.html" class="btn btn-brand aHomePage me-2">Comece já!</a>
+                <a href="screen/login/login.php" class="btn btn-brand aHomePage me-2">Comece já!</a>
                 <a href="#" class="btn btn-light aHomePage ms-2">Nos contate!</a>
               </div>
             </div>
@@ -448,7 +451,7 @@
         <div class="container">
           <div class="row gy-5">
             <div class="col-lg-3 col-sm-6">
-              <a href="main.html"> <img class="logoFotter" src="Images/Logo/logopng1.png" alt=""></a>
+              <a href="main.php"> <img class="logoFotter" src="Images/Logo/logopng1.png" alt=""></a>
               <div class="line"></div>
               <p>Nosso trabalho é fazer o melhor caminho entre você e o prestador de serviços ideal.</p>
               <div class="social-icons">
@@ -473,8 +476,8 @@
               <h5 class="mb-0 text-white">Sobre Nós</h5>
               <div class="line"></div>
               <ul>
-                <li><a href="main.html">Callit</a></li>
-                <li><a href="screen/services/services.html">Serviços</a></li>
+                <li><a href="main.php">Callit</a></li>
+                <li><a href="screen/services/services.php">Serviços</a></li>
                 <li><a href="#about">Informações</a></li>
                 <li><a href="#reviews">Avaliações</a></li>
                 <li><a href="#criadores">Criadores</a></li>

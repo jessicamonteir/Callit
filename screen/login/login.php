@@ -1,0 +1,110 @@
+<?php 
+    include("../../conn.php");
+    session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../login/login.css">
+    <script src="regex.js"></script>
+</head>
+
+<body>
+
+    <div class="section">
+        <div class="container">
+            <div class="row full-height justify-content-center">
+                <div class="col-12 text-center align-self-center py-5">
+                    <img class="logo" src="/Images/Logo/caliit.png" alt="">
+                    <div class="section pb-5 pt-5 pt-sm-2 text-center">
+                        <h6 class="mb-0 pb-3"><span>Entrar </span><span>Cadastrar</span></h6>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                        <label for="reg-log"></label>
+                        <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                                <div class="card-front">
+                                    <div class="center-wrap">
+                                        <div id="showErrorMessage" style="display:none" class="alert alert-danger"
+                                            role="alert">
+                                            Login Incorreto
+                                        </div>
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Entrar</h4>
+                                            <form id="loginForm" name="loginForm" action="loginToDB.php" method="post">
+                                                <div class="form-group">
+                                                    <input type="email" name="logemail" class="form-style"
+                                                        placeholder="Seu email" id="logemail" autocomplete="off">
+                                                    <i class="fa-solid fa-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="logpass" class="form-style"
+                                                        placeholder="Sua senha" id="logpass" autocomplete="off">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </div>
+                                                <button type="submit" class="btn mt-4" id="btnlogin">Enviar</button>
+                                            </form>
+                                            <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Esqueceu a sua
+                                                    senha?</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-back">
+                                    <div class="center-wrap">
+                                        <div id="showErrorMessage" style="display:none" class="alert alert-danger"
+                                            role="alert">
+                                            Login Incorreto
+                                        </div>
+                                        <div class="section text-center">
+                                            <h4 class="mb-4 pb-3">Cadastrar</h4>
+                                            <form id="registerForm" name="registerForm" action="cadastroToDB.php" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" name="logname" class="form-style"
+                                                        placeholder="Nome completo" id="logname"
+                                                        autocomplete="off">
+                                                    <i class="fa-solid fa-user"></i>
+                                                </div>
+                                                <!-- Adicionar parte de tipo de serviço tambem... -->
+                                                <div class="form-group mt-2">
+                                                    <input type="email" name="sigemail" class="form-style"
+                                                        placeholder="Seu email" id="sigemail"
+                                                        autocomplete="off">
+                                                    <i class="fa-solid fa-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="password" name="sigpass" class="form-style"
+                                                        placeholder="Sua senha" id="sigpass"
+                                                        autocomplete="off">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                </div>
+                                                <button type="submit" class="btn mt-4">Enviar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.getElementById("loginForm").onsubmit = function() {
+            return validation();
+        }
+        document.getElementById("registerForm").onsubmit = function() {
+            return validation();
+        }
+    </script>
+</body>
+
+</html>
