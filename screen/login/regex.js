@@ -15,7 +15,6 @@ function validation(){
   if(!regexUsername.test(usernameValue)){
     let errorMessage = document.getElementById('showErrorMessage');
     errorMessage.style.display = 'block';
-    console.log('abababa');
     return false;
   }
   if(!regexEmail.test(loginValue)){
