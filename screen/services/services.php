@@ -10,13 +10,13 @@
   <title>Serviços</title>
 </head>
 <body>
-<!--Nav-->
+  <!--Nav-->
     <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -40,12 +40,12 @@
                 <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/screen/services/services.php">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/screen/profile/editarperfilcliente.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/editarperfilcliente.php">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
               </li>
@@ -62,9 +62,10 @@
             </div>
         </div>
     </nav>
+    <!--Areas-->
     <div class="row">
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/professora1.jpg" alt=""> 
+            <div class="product"> <img src="/Callit/Images/imagensServicos/professora1.jpg" alt=""> 
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -75,7 +76,7 @@
                     </li>
                 </ul>
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                    <a href="/screen/profile/perfilprestador.php"><li class="icon"><i class="ri-user-fill"></i></li></a>
+                    <a href="/Callit/screen/profile/editarperfilprestador.php"><li class="icon"><i class="ri-user-fill"></i></li></a>
                 </ul>
             </div>
             <div class="tag bg-aula">Aula Particular</div>
@@ -84,7 +85,7 @@
             <div class="price">R$ 60,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/Jardineiro2.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/Jardineiro2.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -104,7 +105,7 @@
             <div class="price">R$ 55,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/cozinheiro3.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/cozinheiro3.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -124,7 +125,7 @@
             <div class="price">R$ 70,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/faztudo1.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/faztudo1.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -146,7 +147,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/eletricista1.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/eletricista1.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -166,7 +167,7 @@
             <div class="price">R$ 60,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/Jardineiro3.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/Jardineiro3.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -186,7 +187,7 @@
             <div class="price">R$ 55,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/professor1.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/professor1.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -206,7 +207,7 @@
             <div class="price">R$ 70,00</div>
         </div>
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-            <div class="product"> <img src="/Images/imagensServicos/cozinheiro2.jpg" alt="">
+            <div class="product"> <img src="/Callit/Images/imagensServicos/cozinheiro2.jpg" alt="">
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                     <li class="star">
                         <i class="ri-star-fill text-warning"></i>
@@ -228,7 +229,7 @@
     </div>
     <div class="row">
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/Jardineiro4.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/Jardineiro4.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -248,7 +249,7 @@
           <div class="price">R$ 60,00</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/professor2.jpeg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/professor2.jpeg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -268,7 +269,7 @@
           <div class="price">R$ 55.0</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/eletricista2.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/eletricista2.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -288,7 +289,7 @@
           <div class="price">R$ 70,00</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/empregada1.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/empregada1.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -310,7 +311,7 @@
   </div>
   <div class="row">
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/empregada2.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/empregada2.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -330,7 +331,7 @@
           <div class="price">R$ 60,00</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/Jardineiro5.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/Jardineiro5.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -350,7 +351,7 @@
           <div class="price">R$ 55,00</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/faztudo2.jpg" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/faztudo2.jpg" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -370,7 +371,7 @@
           <div class="price">R$ 70,00</div>
       </div>
       <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
-          <div class="product"> <img src="/Images/imagensServicos/cozinheiro1.png" alt="">
+          <div class="product"> <img src="/Callit/Images/imagensServicos/cozinheiro1.png" alt="">
             <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 <li class="star">
                     <i class="ri-star-fill text-warning"></i>
@@ -399,7 +400,7 @@
       <div class="container">
         <div class="row gy-5">
           <div class="col-lg-3 col-sm-6">
-            <a href="../../main.php"> <img class="logoFotter" src="/Images/Logo/logopng1.png"></a>
+            <a href="../../main.php"> <img class="logoFotter" src="/Callit/Images/Logo/logopng1.png"></a>
             <div class="line"></div>
             <p>Nosso trabalho é fazer o melhor caminho entre você e o prestador de serviços ideal.</p>
             <div class="social-icons">
@@ -425,7 +426,7 @@
             <div class="line"></div>
             <ul>
               <li><a href="../../main.php">Callit</a></li>
-              <li><a href="screen/services/services.php">Serviços</a></li>
+              <li><a href="/Callit/screen/services/services.php">Serviços</a></li>
               <li><a href="../../main.php">Informações</a></li>
               <li><a href="../../main.php">Avaliações</a></li>
               <li><a href="../../main.php">Criadores</a></li>
