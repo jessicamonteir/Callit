@@ -19,7 +19,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="/Images/Profile_Images/professora1.jpg" alt=""/>
+                        <img src="/Callit/Images/Profile_Images/professora1.jpg" alt=""/>
                         <div class="file btn btn-lg btn-primary">
                             Mudar foto
                             <input type="file" name="file"/>

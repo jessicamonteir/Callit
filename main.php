@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
   <body>
 
@@ -23,7 +24,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png"></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -47,12 +48,12 @@
                 <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/services/services.php">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="screen/login/login.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
               </li>
@@ -78,7 +79,7 @@
         </div>
       </section>
 
-<!--Segunda Parte-->
+      <!--Segunda Parte-->
       <section id="about" class="section-padding">
         <div class="container">
           <div class="row">
@@ -386,7 +387,7 @@
           <div class="col-md-4 swiper-slide">
             <div class="team-member image-zoom">
               <div class="image-zoom-warpper">
-                <img src="Images/HomePage/ryan-gosling.jpg" alt="">
+                <img src="/Callit/Images/HomePage/ryan-gosling.jpg" alt="">
               </div>
               <div class="team-member-content">
                 <h4 class="text-white">Pedro Dallanora</h4>
@@ -498,7 +499,7 @@
       </div>
     </footer>
 
-    <script src="/swiper/swiper-bundle.min.js"></script>
+    <script src="/Callit/swiper/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
