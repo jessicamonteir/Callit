@@ -1,23 +1,39 @@
-<?php 
-    include('../../conn.php');
-    $email = $_POST['logemail'];
-    $password = $_POST['logpass'];
+<?php
+session_start();
 
-    $sql = "SELECT U.email,Login.senha FROM Usuario as U
-    INNER JOIN Login ON U.email = Login.email 
-    WHERE U.email = '$email'";
+include('../../conn.php');
 
-    $result = $con->query($sql);
-    if ($result === FALSE) {
-        echo "Error: " . $sql . "<br>" . $con->error;
+$email = $_POST['logemail'] ?? null;
+$password = $_POST['logpass'] ?? null;
+
+if (!empty($email) && !empty($password)) {
+    $sqlUsuario = "SELECT email, senha FROM Usuario WHERE email = '$email' AND senha = md5('$password')";
+    $resultUsuario = $con->query($sqlUsuario);
+    if ($resultUsuario === FALSE) {
+        echo "Error: " . $sqlUsuario . "<br>" . $con->error;
     } else {
-        if ($result->num_rows > 0) {
+        if ($resultUsuario->num_rows > 0) {
+            $_SESSION["email"] = $email;
             header("Location: ../../main.php");
             exit();
         } else {
-            echo "Usuário não encontrado.";
+            $sqlPrestador = "SELECT email, senha FROM Prestador WHERE email = '$email' AND senha = md5('$password')";
+            $resultPrestador = $con->query($sqlPrestador);
+            if ($resultPrestador === FALSE) {
+                echo "Error: " . $sqlPrestador . "<br>" . $con->error;
+            } else {
+                if ($resultPrestador->num_rows > 0) {
+                    $_SESSION["email"] = $email;
+                    header("Location: ../../main.php");
+                    exit();
+                } else {
+                    echo "Usuário não encontrado.";
+                }
+            }
         }
     }
-    $con->close();
-
+} else {
+    echo "Email ou senha não foram fornecidos.";
+}
+$con->close();
 ?>

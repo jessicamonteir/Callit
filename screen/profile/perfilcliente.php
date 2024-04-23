@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="perfilprestador.css">
@@ -85,6 +85,15 @@
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilcliente.php">Editar Perfil</a></button>
+                    <button type="submit" class="profile-edit-btn" onclick="session_out()"><a>Sair da Sessão</a></button>
+                    <script>
+                      function session_out() {
+                        if (confirm("Sair da sessão atual?")) {
+                          window.location.href = "session_out.php";
+                        }
+                      }
+                    </script>
+                    <button type="submit" class="profile-edit-btn" onclick="del_account()"><a>Deletar Conta</a></button>
                 </div>
             </div>
             <div class="row">

@@ -5,16 +5,16 @@ CREATE TABLE Usuario (
     Id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(200),
     Email VARCHAR(100),
-    Senha VARCHAR(30)
+    Senha VARCHAR(200)
 );
 
 CREATE TABLE Prestador (
     Id_prestador INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(200),
     Email VARCHAR(100),
-    Servico_Prestado INT, /* Número do serviço prestado, por exemplo => 1 = Jardinagem, 2 = Eletricista,...  */
+    Servico_Prestado VARCHAR(25),
     Avaliacao INT, /* Média de avaliação do prestador */
-    Senha VARCHAR(30)
+    Senha VARCHAR(200)
 );
 
 CREATE TABLE Servico (
@@ -44,13 +44,30 @@ VALUES (1, 1, 'Segunda', TRUE, '2024-04-22', '2024-04-21');
 
 INSERT INTO Prestador (Nome, Email, Servico_Prestado,Avaliacao,Senha)
 VALUES ('Felipe','felipe@gmail.com',1,10,'afdasfafa');
+*/
+INSERT INTO Servico (Nome_servico, Descricao)
+VALUES ('Jardinagem','Cortar grama'),
+('Encanador','Revisão do encanamento'),
+('Eletricista','Revisa a parte elétrica do local'),
+('Pedreiro','Construção e Planejamento'),
+('Pintor','Realiza a pintura do local desejado');
 
-INSERT INTO Servico (Nome_Servico, Descricao)
-VALUES ('Jardinagem','Cortar grama');
-
+SELECT * FROM Agenda;
 SELECT * FROM Prestador;
+SELECT * FROM Usuario;
+
+SELECT Nome_servico FROM Servico;
 SELECT * FROM AGENDA WHERE FK_ID_Prestador = 1 AND Data_Inicio_Semana = '2024-04-14';
+
+ALTER TABLE Prestador
+MODIFY Servico_prestado VARCHAR(25);
+ALTER TABLE Prestador
+MODIFY Senha VARCHAR(200);
+ALTER TABLE Usuario
+MODIFY Senha VARCHAR(200);
+
+DELETE FROM AGENDA;
+DELETE FROM Servico;
 
 DROP DATABASE CALLIT_V2;
 DROP TABLE SERVICO; 
-*/
