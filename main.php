@@ -52,24 +52,26 @@
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
               <?php 
-                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null) {
-                  ?>
-                  <script>
-                    console.log(
-                      <?php 
-                      $_SESSION["email"];
-                    ?>)
-                  </script>
-                  <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
-                    <i class="fa-solid fa-circle-user me-1">
-                  <?php
-                } else {
-                  ?>
-                  <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
-                    <i class="fa-solid fa-circle-user me-1"></i>
-                  <?php
-                }
+                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
+                  <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                  <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } else {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+                  Entrar
+                </a>
+                <?php
+                }
+              ?>
                     </i>
                 </a>
               </li>

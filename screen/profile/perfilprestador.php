@@ -1,3 +1,7 @@
+<?php
+  session_start();
+  include('../../conn.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,13 +47,33 @@
                 <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/screen/services/services.php">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/screen/login/lophp">
+              <?php 
+                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
                   <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                  <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } else {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+                  Entrar
+                </a>
+                <?php
+                }
+              ?>
+                    </i>
                 </a>
               </li>
             </ul>
@@ -69,13 +93,25 @@
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
-                                <h5>
-                                    Andressa Lima
-                                </h5>
-                                <h6>
-                                    Professora Particular
-                                </h6>
-                                <p class="proile-rating">Avaliação : <span>4.8/5</span></p>
+                              <?php
+                                $email = $_SESSION["email"] ?? null;
+
+                                if (!empty($email)) {
+                                    $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                                    $result = $con->query($sql);
+                            
+                                    if ($result->num_rows > 0) {
+                                        $row = $result->fetch_assoc();
+                                        $nome = $row["Nome"];
+                                        $tipo_servico = $row["Servico_prestado"];
+                                        $avaliacao = $row["Avaliacao"];
+
+                                        echo "<h5>" . $nome . "<h5>";
+                                        echo "<h6>" . $tipo_servico . "<h6>";
+                                        echo "<p class='proile-rating'>Avaliação : <span>" . $avaliacao . "</span></p>";
+                                    }
+                                  }
+                                ?>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
@@ -83,8 +119,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 d-flex flex-column justify-content-evenly">
                   <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilprestador.php">Editar Perfil</a></button>
+                  <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
+                    <script>
+                        function session_out() {
+                            if (confirm("Sair da sessão atual?")) {
+                                window.location.href = "../../session_out.php";
+                            }
+                        }
+                    </script>
                 </div>
             </div>
             <div class="row">
@@ -92,7 +136,7 @@
                     <div class="profile-work">
                         <p>Contato</p>
                         <a href="">Telefone: 991234567</a><br/>
-                        <a href="">Email: andressa.lima12@gmail.com</a><br/>
+                        <a href="">Email: <?php echo $_SESSION["email"]; ?></a><br/>
                         <div class="container">
                           <div class="chatbox">
                               <div class="chatbox__support">
@@ -140,22 +184,39 @@
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Nome</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Andressa Lima</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Serviço</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Professora Particular</p>
-                                        </div>
-                                    </div>
+                                  <?php
+                                    $email = $_SESSION["email"] ?? null;
+
+                                    if (!empty($email)) {
+                                        $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                                        $result = $con->query($sql);
+                                
+                                        if ($result->num_rows > 0) {
+                                            $row = $result->fetch_assoc();
+                                            $nome = $row["Nome"];
+                                            $tipo_servico = $row["Servico_prestado"];
+                                
+                                            echo '<div class="row">';
+                                            echo '<div class="col-md-6">';
+                                            echo '<label>Nome</label>';
+                                            echo '</div>';
+                                            echo '<div class="col-md-6">';
+                                            echo '<p>' . $nome . '</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '<div class="row">';
+                                            echo '<div class="col-md-6">';
+                                            echo '<label>Serviço</label>';
+                                            echo '</div>';
+                                            echo '<div class="col-md-6">';
+                                            echo '<p>' . $tipo_servico . '</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                        } else {
+                                            echo "Usuário não encontrado.";
+                                        }
+                                    }
+                                  ?>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Preço</label>

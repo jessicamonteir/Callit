@@ -25,19 +25,35 @@
 
 <body>
 <script>
-    function hideUser(x) {
-        if (x.checked) {
-            document.getElementById("registerFormUser").style.display = "none";
-            document.getElementById("registerFormPrestador").style.display = "initial";
+
+    let activate = false;
+
+    function hideUser() {
+        document.getElementById("registerFormUser").style.display = "none";
+        document.getElementById("registerFormPrestador").style.display = "initial";
+        document.getElementById("usuario").classList.remove("active");
+        document.getElementById("prestador").classList.add("active");
+        document.querySelector(".card-3d-wrapper").style.height = "120%";
+        activate = true;
+    }
+
+    function hidePrestador() {
+        document.getElementById("registerFormPrestador").style.display = "none";
+        document.getElementById("registerFormUser").style.display = "initial";
+        document.getElementById("prestador").classList.remove("active");
+        document.getElementById("usuario").classList.add("active");
+        document.querySelector(".card-3d-wrapper").style.height = "100%";
+        activate = false;
+    }
+
+    function gridToNormal(checkbox) {
+        if(activate && checkbox.checked) {
+            document.querySelector(".card-3d-wrapper").style.height = "120%";
+        } else {
+            document.querySelector(".card-3d-wrapper").style.height = "100%";
         }
     }
 
-    function hidePrestador(x) {
-        if (x.checked) {
-            document.getElementById("registerFormPrestador").style.display = "none";
-            document.getElementById("registerFormUser").style.display = "initial";
-        }
-    }
     const regexPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     const regexUsername = /^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/;
@@ -51,7 +67,6 @@
     const sigemailValue = sigemail.value;
     const passwordValue = password.value;
     if (!regexUsername.test(usernameValue) || !regexEmail.test(sigemailValue) || !regexPass.test(passwordValue)) {
-        console.log("Ei")
         let errorMessage = document.getElementById('showErrorMessageSignUp');
         errorMessage.style.display = "initial";
         errorMessage.textContent = "Cadastro Incorreto";
@@ -85,7 +100,7 @@
                     <img class="logo" src="/Images/Logo/caliit.png" alt="">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
                         <h6 class="mb-0 pb-3"><span>Entrar </span><span>Cadastrar</span></h6>
-                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" onclick="gridToNormal(this)"/>
                         <label for="reg-log"></label>
                         <div class="card-3d-wrap mx-auto">
                             <div class="card-3d-wrapper">
@@ -125,18 +140,20 @@
                                         </div>
                                         <div class="section text-center">
 
-                                            <h4 class="mb-4 pb-3">Cadastrar</h4>
+                                            <h4 class="mb-3 mt-3">Cadastrar</h4>
 
-                                                <input class="form-check-input" type="radio" name="SignUp" id="usuario" checked
-                                                onchange="hidePrestador(this)">
-                                                <label class="form-check-label" for="usuario">
-                                                    Usuário
-                                                </label>
-                                                <input class="form-check-input" type="radio" name="SignUp" id="prestador"
-                                                onchange="hideUser(this)">
-                                                <label class="form-check-label" for="prestador">
-                                                    Prestador
-                                                </label>
+                                                <div class="d-flex mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <button type="button" class="btn btn-primary" id="usuario" onclick="hidePrestador()">
+                                                            Usuário
+                                                        </button>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <button type="button" class="btn btn-primary" id="prestador" onclick="hideUser()">
+                                                            Prestador
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             
                                             <form id="registerFormUser" name="registerFormUser" action="cadastroToDB.php" method="post"
                                             onsubmit="return validationUsuario();">
@@ -153,9 +170,16 @@
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
-                                                    <input type="password" name="sigpassUser" class="form-style"
-                                                        placeholder="Sua senha" id="sigpassUser"
-                                                        autocomplete="off">
+                                                    <input type="password"
+                                                        class="form-style" 
+                                                        id="sigpassUser" 
+                                                        name="sigpassUser" 
+                                                        required 
+                                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" 
+                                                        title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial." 
+                                                        placeholder="Sua senha"
+                                                        autocomplete="off"
+                                                    />
                                                     <i class="fa-solid fa-lock"></i>
                                                 </div>
                                                 <button type="submit" class="btn mt-4">Cadastrar Usuário</button>
@@ -179,9 +203,16 @@
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
-                                                    <input type="password" name="sigpassPrestador" class="form-style"
-                                                        placeholder="Sua senha" id="sigpassPrestador"
-                                                        autocomplete="off">
+                                                    <input type="password"
+                                                        class="form-style" 
+                                                        id="sigpassPrestador" 
+                                                        name="sigpassPrestador" 
+                                                        required 
+                                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" 
+                                                        title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial." 
+                                                        placeholder="Sua senha"
+                                                        autocomplete="off"
+                                                    />
                                                     <i class="fa-solid fa-lock"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
@@ -197,7 +228,7 @@
                                                     <i class="fa-solid fa-lightbulb"></i>
                                                 </div>
 
-                                                <button type="submit" class="btn mt-4">Cadastrar Prestador</button>
+                                                <button type="submit" class="btn mt-4 mb-4">Cadastrar Prestador</button>
                                             </form>
                                         </div>
                                     </div>

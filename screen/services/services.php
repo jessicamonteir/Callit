@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,8 +48,28 @@
             </ul>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/editarperfilcliente.php">
+              <?php 
+                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
                   <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                  <i class="fa-solid fa-circle-user me-1"></i>
+                </a>
+                <?php
+                } else {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+                  Entrar
+                </a>
+                <?php
+                }
+              ?>
+                    </i>
                 </a>
               </li>
             </ul>

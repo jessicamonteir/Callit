@@ -1,20 +1,3 @@
-function hideUser(x){
-  console.log("opa")
-  if(x.checked){
-    document.getElementById("registerFormUser").style.display = "none";
-    document.getElementById("registerFormPrestador").style.display = "initial";
-  }
-}
-function hidePrestador(x){
-  console.log("opa")
-  if(x.checked) {
-    document.getElementById("registerFormPrestador").style.display = "none";
-    document.getElementById("registerFormUser").style.display = "initial";
-  }
-}
-
-
-
 const username = document.getElementById('logname')
 const login = document.getElementById('logemail')
 const sigemail = document.getElementById('sigemail')

@@ -1,3 +1,8 @@
+<?php
+  session_start();
+
+  include('../../conn.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,13 +47,33 @@
             <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase navegacao" href="/screen/services/services.php">Serviços</a>
+            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto ">
           <li class="nav-item">
-            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+          <?php 
+            if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
+            ?>
+            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
               <i class="fa-solid fa-circle-user me-1"></i>
+            </a>
+            <?php
+            } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
+            ?>
+            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+              <i class="fa-solid fa-circle-user me-1"></i>
+            </a>
+            <?php
+            } else {
+            ?>
+            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+              Entrar
+            </a>
+            <?php
+            }
+          ?>
+                </i>
             </a>
           </li>
         </ul>
@@ -68,14 +93,28 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="profile-head">
-                                <h5>
-                                    Andressa Lima
-                                </h5>
-                                <h6>
-                                    Babá
-                                </h6>
-                                <p class="proile-rating">Avaliação : <span>4.8/5</span></p>
+                <div class="profile-head">
+                  <?php
+                  $email = $_SESSION["email"] ?? null;
+
+                  if (!empty($email)) {
+                      $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                      $result = $con->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+                          $nome = $row["Nome"];
+                          $tipo_servico = $row["Servico_prestado"];
+                          $avaliacao = $row["Avaliacao"];
+
+                          echo '<h5>' . $nome . '</h5>';
+                          echo '<h6>' . $tipo_servico . '</h6>';
+                          echo '<p class="proile-rating">Avaliação : <span>' . $avaliacao . '/5</span></p>';
+                      } else {
+                          echo "Usuário não encontrado.";
+                      }
+                  }
+                  ?>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
@@ -83,8 +122,16 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 d-flex flex-column justify-content-evenly">
                   <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="perfilprestador.php">Salvar</a></button>
+                  <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
+                  <script>
+                      function del_account() {
+                          if (confirm("Deletar sua conta?")) {
+                            window.location.href = "../../deleteUserAccount.php";
+                          }
+                      }
+                  </script>
                 </div>
             </div>
             <div class="row">
@@ -94,29 +141,59 @@
                         <div class="row">
                         <a href="">Telefone: <input type="text" placeholder="991234567"></p></a><br/>
                         </div>
-                        <a href="">Email: andressa.lima12@gmail.com</a><br/>
+                        <a href="">Email: <?php echo $_SESSION["email"]; ?></a><br/>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                   
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Nome</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Andressa Lima"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Serviço</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Babá</p>
-                                        </div>
-                                    </div>
+                        <?php
+                          $email = $_SESSION["email"] ?? null;
+
+                          if (!empty($email)) {
+                              $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                              $result = $con->query($sql);
+
+                              if ($result->num_rows > 0) {
+                                  $row = $result->fetch_assoc();
+                                  $nome = $row["Nome"];
+                                  $tipo_servico = $row["Servico_prestado"];
+                                  $avaliacao = $row["Avaliacao"];
+
+                                  $sql_servicos = "SELECT Nome_servico FROM Servico";
+                                  $result_servicos = $con->query($sql_servicos);
+                                  $servicosDisponiveis = array();
+                                  while ($row_servico = $result_servicos->fetch_assoc()) {
+                                      $servicosDisponiveis[] = $row_servico['Nome_servico'];
+                                  }
+
+                                  echo '<div class="row">';
+                                  echo '<div class="col-md-6">';
+                                  echo '<label>Nome</label>';
+                                  echo '</div>';
+                                  echo '<div class="col-md-6">';
+                                  echo '<input type="text" placeholder="Andressa Lima" value="' . $nome . '"></p>';
+                                  echo '</div>';
+                                  echo '</div>';
+                                  echo '<div class="row">';
+                                  echo '<div class="col-md-6">';
+                                  echo '<label>Serviço</label>';
+                                  echo '</div>';
+                                  echo '<div class="col-md-6">';
+                                  echo '<select class="form-style" id="servico" name="servico" aria-placeholder="Selecione um Serviço" autocomplete="off">';
+                                  echo '<option value="" disabled>Selecione um serviço</option>';
+                                  foreach ($servicosDisponiveis as $servico) {
+                                      $selected = ($servico == $tipo_servico) ? 'selected' : '';
+                                      echo "<option value='" . htmlspecialchars($servico) . "' $selected>" . htmlspecialchars($servico) . "</option>";
+                                  }
+                                  echo '</select>';
+                                  echo '</div>';
+                                  echo '</div>';
+                              } else {
+                                  echo "Usuário não encontrado.";
+                              }
+                          }
+                                   ?>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Preço</label>

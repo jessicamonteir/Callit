@@ -1,6 +1,7 @@
 <?php
     session_start();
-    $_SESSION["user"] = null;
+    $_SESSION["email"] = null;
+    $_SESSION["PRESTADOR"] = null;
     session_destroy();
     header("Location: /Callit/main.php");
 ?>
