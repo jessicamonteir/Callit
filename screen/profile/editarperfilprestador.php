@@ -23,7 +23,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+        <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
       <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
         <div class="input-group">
           <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -139,9 +139,9 @@
                     <div class="profile-work">
                         <p>Contato</p>
                         <div class="row">
-                        <a href="">Telefone: <input type="text" placeholder="991234567"></p></a><br/>
+                        <p>Telefone: <input type="text" placeholder="991234567"></p><br/>
                         </div>
-                        <a href="">Email: <?php echo $_SESSION["email"]; ?></a><br/>
+                        <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -172,7 +172,7 @@
                                   echo '<label>Nome</label>';
                                   echo '</div>';
                                   echo '<div class="col-md-6">';
-                                  echo '<input type="text" placeholder="Andressa Lima" value="' . $nome . '"></p>';
+                                  echo '<input type="text" placeholder="'. $nome . '" value="' . $nome . '"></p>';
                                   echo '</div>';
                                   echo '</div>';
                                   echo '<div class="row">';
@@ -188,44 +188,22 @@
                                   }
                                   echo '</select>';
                                   echo '</div>';
+                                  echo '</div>'; 
+
+                                  echo '<div class="row">';
+                                  echo '<div class="col-md-6">';
+                                  echo '<label>Preço</label>';
                                   echo '</div>';
-                              } else {
+                                  echo '<div class="col-md-6">';
+                                  echo '<input type="text" placeholder="30/hr" value="30/hr"></p>';
+                                  echo '</div>';
+                                  echo '</div>';
+                                }
+                                    else {
                                   echo "Usuário não encontrado.";
                               }
-                          }
-                                   ?>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Preço</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="30/hr"></p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Disponibilidade:</label>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-                                            <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.9/index.global.min.js"></script>
-                                            <script src="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/controller/calendar-1.js"></script>
-                                            <div class="py-3 py-md-5">
-                                                <div class="container">
-                                                  <div class="row justify-content-center">
-                                                    <div class="col-6 col-lg-9 col-xl-9">
-                                                      <div class="card widget-card border-light shadow-sm">
-                                                        <div class="card-body p-4">
-                                                          <div id="bsb-calendar-1" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap5 bsb-calendar-theme"></div>
-                                                          </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                              </div>
-
-                                        </div>
-                                    </div>
+                            }
+                            ?>
                         </div>
                         
                                 </div>

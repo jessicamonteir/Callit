@@ -136,9 +136,9 @@
                     <div class="profile-work">
                         <p>Contato</p>
                         <div class="row">
-                        <a href="">Telefone: <input type="text" placeholder="997657654"></p></a><br/>
+                        <p>Telefone: <input type="text" placeholder="997657654"></p><br/>
                         </div>
-                        <a href="">Email: <?php echo $_SESSION["email"];?></a><br/>
+                        <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
                     </div>
                 </div>
                 <div class="col-md-8">

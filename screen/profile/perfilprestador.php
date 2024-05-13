@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/css/calendar-1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     
 </head>
 <body>
@@ -85,10 +90,7 @@
                 <div class="col-md-4">
                     <div class="profile-img">
                         <img src="/Callit/Images/Profile_Images/professora1.jpg" alt=""/>
-                        <div class="file btn btn-lg btn-primary">
-                            Mudar foto
-                            <input type="file" name="file"/>
-                        </div>
+                      
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -122,21 +124,21 @@
                 <div class="col-md-2 d-flex flex-column justify-content-evenly">
                   <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilprestador.php">Editar Perfil</a></button>
                   <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
-                    <script>
-                        function session_out() {
-                            if (confirm("Sair da sessão atual?")) {
-                                window.location.href = "../../session_out.php";
-                            }
-                        }
-                    </script>
+                  <script>
+                      function session_out() {
+                          if (confirm("Sair da sessão atual?")) {
+                              window.location.href = "../../session_out.php";
+                          }
+                      }
+                  </script>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p>Contato</p>
-                        <a href="">Telefone: 991234567</a><br/>
-                        <a href="">Email: <?php echo $_SESSION["email"]; ?></a><br/>
+                        <p id="contato">Contato</p>
+                        <p>Telefone: 991234567</p>
+                        <p>Email: <?php echo $_SESSION["email"]; ?></p>
                         <div class="container">
                           <div class="chatbox">
                               <div class="chatbox__support">
@@ -230,23 +232,28 @@
                                             <label>Disponibilidade:</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-                                            <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.9/index.global.min.js"></script>
-                                            <script src="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/controller/calendar-1.js"></script>
-                                            <div class="py-3 py-md-5">
-                                                <div class="container">
-                                                  <div class="row justify-content-center">
-                                                    <div class="col-6 col-lg-9 col-xl-9">
-                                                      <div class="card widget-card border-light shadow-sm">
-                                                        <div class="card-body p-4">
-                                                          <div id="bsb-calendar-1" class="fc fc-media-screen fc-direction-ltr fc-theme-bootstrap5 bsb-calendar-theme"></div>
-                                                          </div>
-                                                        </div>
-                                                    </div>
+                                          <section class="container">
+                                            <form >
+                                                <div class="input-group date" id="datepicker">
+                                                  <input type="text" class="form-control" id="date" onChange="mudar()"/>
+                                                  <span class="input-group-append">
+                                                    <span class="input-group-text bg-light d-block">
+                                                      <script>
+                                                        $(function(){
+                                                          $('#datepicker').datepicker();
+                                                        });
+                                                        function mudar(){
+                                                        var dataa = document.getElementById("date").value
+                                                        console.log(dataa)
+                                                        }
+                                                      </script>
+                                                      <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                  </span>
                                                 </div>
-                                                </div>
-                                              </div>
-
+                                              
+                                            </form>
+                                          </section>
                                         </div>
 
                                     </div>
@@ -365,8 +372,8 @@
 const chatButton = document.querySelector('.chatbox__button');
 const chatContent = document.querySelector('.chatbox__support');
 const icons = {
-    isClicked: '<img src="/Images/Profile_Images/chatimg.png" width="50" height="50">',
-    isNotClicked: '<img src="/Images/Profile_Images/chatimg.png" width="60" height="60">'
+    isClicked: '<img src="/Callit/Images/Profile_Images/chatimg.png" width="50" height="50">',
+    isNotClicked: '<img src="/Callit/Images/Profile_Images/chatimg.png" width="60" height="60">'
 }
 const chatbox = new InteractiveChatbox(chatButton, chatContent, icons);
 chatbox.display();

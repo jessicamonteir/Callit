@@ -70,15 +70,10 @@
     margin-top: -15%;
 }
 .profile-work p{
-    font-size: 12px;
-    color: #818182;
+
     font-weight: 600;
-    margin-top: 10%;
-}
-.profile-work a{
     text-decoration: none;
     color: #495057;
-    font-weight: 600;
     font-size: 14px;
 }
 .profile-work ul{
@@ -339,6 +334,15 @@ footer{
   
   a{
     outline: none;
+  }
+  .input-group-append {
+    cursor: pointer;
+  }
+  #servico{
+    margin-bottom: 15px;
+  }
+  #contato{
+    margin-top: 20px;
   }
 
 

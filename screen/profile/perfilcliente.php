@@ -22,7 +22,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -84,11 +84,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="/Images/Profile_Images/homem perfil.jpg" alt=""/>
-                        <div class="file btn btn-lg btn-primary">
-                            Mudar foto
-                            <input type="file" name="file"/>
-                        </div>
+                        <img src="/Callit/Images/Profile_Images/homem perfil.jpg" alt=""/>
+                        
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -133,9 +130,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p>Contato</p>
-                        <a href="">Telefone: 997657654</a><br/>
-                        <a href="">Email: <?php echo $_SESSION["email"];?></a><br/>
+                        <p id="contato">Contato</p>
+                        <div class="row">
+                        <p>Telefone: 997657654</p>
+                        </div>
+                        <p>Email: <?php echo $_SESSION["email"];?></p>
                     </div>
                 </div>
                 <div class="col-md-8">

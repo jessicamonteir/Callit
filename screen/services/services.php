@@ -92,7 +92,7 @@
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
                 </ul>
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
-                    <a href="/Callit/screen/profile/editarperfilprestador.php"><li class="icon"><i class="ri-user-fill"></i></li></a>
+                    <a href="/Callit/screen/profile/perfilprestador.php"><li class="icon"><i class="ri-user-fill"></i></li></a>
                 </ul>
             </div>
             <div class="tag bg-aula">Aula Particular</div>
