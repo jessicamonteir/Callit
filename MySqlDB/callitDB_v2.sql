@@ -3,18 +3,22 @@ USE CALLIT_V2;
 
 CREATE TABLE Usuario (
     Id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(200),
-    Email VARCHAR(100),
-    Senha VARCHAR(200)
+    Nome VARCHAR(200) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Senha VARCHAR(200) NOT NULL,
+    Telefone VARCHAR(10) NOT NULL,
+    Foto_Perfil BLOB
 );
 
 CREATE TABLE Prestador (
     Id_prestador INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(200),
-    Email VARCHAR(100),
-    Servico_Prestado VARCHAR(25),
+    Nome VARCHAR(200) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Servico_Prestado VARCHAR(25) NOT NULL,
     Avaliacao INT, /* Média de avaliação do prestador */
-    Senha VARCHAR(200)
+    Senha VARCHAR(200) NOT NULL,
+    Telefone VARCHAR(10) NOT NULL,
+    Foto_Perfil BLOB
 );
 
 CREATE TABLE Servico (
@@ -31,6 +35,7 @@ CREATE TABLE Agenda (
     Data_de_Agendamento DATE, -- Data do agendamento
     Data_Inicio_Semana DATE,  -- Data do início da semana (Facilita agrupamento de agendamentos)
     Disponibilidade BOOLEAN, -- Se o prestador está disponível no dia ou não
+    Cliente VARCHAR(200), -- Nome do usuário que fez o agendamento
 	FOREIGN KEY (FK_ID_Prestador) REFERENCES Prestador (Id_prestador),
 	FOREIGN KEY (FK_ID_Servico) REFERENCES Servico (Id_servico)
 );
