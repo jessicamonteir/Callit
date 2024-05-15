@@ -115,7 +115,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2 d-flex flex-column justify-content-evenly">
+                <div class="col-md-2  flex-column justify-content-evenly">
                     <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilcliente.php">Editar Perfil</a></button>
                     <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
                     <script>
@@ -170,7 +170,7 @@
                                   echo "<label>Nome</label>";
                                   echo "</div>";
                                   echo "<div class='col-md-6'>";
-                                  echo "<p>". $nome ."</p>";
+                                  echo '<p style="margin-left:-11px">'. $nome .'</p>';
                                   echo "</div>";
                               }
                           }

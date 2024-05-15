@@ -102,7 +102,7 @@
         <div class="container">
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center py-5">
-                    <img class="logo" src="/Images/Logo/caliit.png" alt="">
+                    <img class="logo" src="/Callit/Images/Logo/caliit.png" alt="">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
                         <h6 class="mb-0 pb-3"><span>Entrar </span><span>Cadastrar</span></h6>
                         <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" onclick="gridToNormal(this)"/>
@@ -128,6 +128,14 @@
                                                     <input type="password" name="logpass" class="form-style"
                                                         placeholder="Sua senha" id="logpass" autocomplete="off">
                                                     <i class="fa-solid fa-lock"></i>
+                                                </div>
+                                                <div>
+                                                    <?php
+                                                    if (isset($_SESSION['error_message'])){
+                                                    echo '<h6 style="margin-top:10px">' . $_SESSION['error_message'] . '</h6>';
+                                                    unset($_SESSION['error_message']);
+                                                    }
+                                                ?>
                                                 </div>
                                                 <button type="submit" class="btn mt-4" id="btnlogin">Enviar</button>
                                             </form>

@@ -29,13 +29,17 @@ if (!empty($email) && !empty($password)) {
                     header("Location: ../../main.php");
                     exit();
                 } else {
-                    echo "Usuário não encontrado.";
+                    $_SESSION['error_message'] = 'Email ou senha incorretos.';
+                    header("Location: login.php");
+                    exit();
                 }
             }
         }
     }
 } else {
-    echo "Email ou senha não foram fornecidos.";
+    $_SESSION['error_message'] = 'Insira email e senha para continuar.';
+    header("Location: login.php");
+    exit();
 }
 $con->close();
 ?>

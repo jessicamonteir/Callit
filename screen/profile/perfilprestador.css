@@ -43,6 +43,7 @@
     font-weight: 600;
     color: #6c757d;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 .proile-rating{
     font-size: 12px;
@@ -343,6 +344,9 @@ footer{
   }
   #contato{
     margin-top: 20px;
+  }
+  .profile-tab p, label{
+    margin-bottom: 15px;
   }
 
 
