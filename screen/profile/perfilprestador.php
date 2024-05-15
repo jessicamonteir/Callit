@@ -105,7 +105,7 @@
                                     if ($result->num_rows > 0) {
                                         $row = $result->fetch_assoc();
                                         $nome = $row["Nome"];
-                                        $tipo_servico = $row["Servico_prestado"];
+                                        $tipo_servico = $row["Servico_Prestado"];
                                         $avaliacao = $row["Avaliacao"];
 
                                         echo "<h5>" . $nome . "<h5>";
@@ -137,7 +137,23 @@
                 <div class="col-md-4">
                     <div class="profile-work">
                         <p id="contato">Contato</p>
-                        <p>Telefone: 991234567</p>
+                        <div class="row">
+                        <?php
+                          $email = $_SESSION["email"] ?? null;
+
+                          if (!empty($email)) {
+                              $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                              $result = $con->query($sql);
+                      
+                              if ($result->num_rows > 0) {
+                                  $row = $result->fetch_assoc();
+                                  $telefone = $row["Telefone"];
+
+                                  echo '<p>Telefone: ' . $telefone . '</p>';
+                              }
+                          }
+                        ?>
+                        </div>
                         <p>Email: <?php echo $_SESSION["email"]; ?></p>
                         <div class="container">
                           <div class="chatbox">
@@ -196,7 +212,7 @@
                                         if ($result->num_rows > 0) {
                                             $row = $result->fetch_assoc();
                                             $nome = $row["Nome"];
-                                            $tipo_servico = $row["Servico_prestado"];
+                                            $tipo_servico = $row["Servico_Prestado"];
                                 
                                             echo '<div class="row">';
                                             echo '<div class="col-md-6">';
@@ -219,14 +235,6 @@
                                         }
                                     }
                                   ?>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Preço</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>30/hr</p>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label>Disponibilidade:</label>

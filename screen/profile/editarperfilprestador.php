@@ -81,138 +81,141 @@
     </div>
   </nav>
       <div class="container emp-profile">
-        <form method="post">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
-                        <div class="file btn btn-lg btn-primary">
-                            Mudar foto
-                            <input type="file" name="file"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                <div class="profile-head">
-                  <?php
-                  $email = $_SESSION["email"] ?? null;
-
-                  if (!empty($email)) {
-                      $sql = "SELECT * FROM Prestador WHERE email = '$email'";
-                      $result = $con->query($sql);
-
-                      if ($result->num_rows > 0) {
-                          $row = $result->fetch_assoc();
-                          $nome = $row["Nome"];
-                          $tipo_servico = $row["Servico_prestado"];
-                          $avaliacao = $row["Avaliacao"];
-
-                          echo '<h5>' . $nome . '</h5>';
-                          echo '<h6>' . $tipo_servico . '</h6>';
-                          echo '<p class="proile-rating">Avaliação : <span>' . $avaliacao . '/5</span></p>';
-                      } else {
-                          echo "Usuário não encontrado.";
-                      }
-                  }
-                  ?>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 d-flex flex-column justify-content-evenly">
-                  <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="perfilprestador.php">Salvar</a></button>
-                  <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
-                  <script>
-                      function del_account() {
-                          if (confirm("Deletar sua conta?")) {
-                            window.location.href = "../../deleteUserAccount.php";
-                          }
-                      }
-                  </script>
+      <form method="post" action="../../updateUserAccount.php">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                <div class="file btn btn-lg btn-primary">
+                    Mudar foto
+                    <input type="file" name="file"/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-work">
-                        <p>Contato</p>
-                        <div class="row">
-                        <p>Telefone: <input type="text" placeholder="991234567"></p><br/>
-                        </div>
-                        <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
-                    </div>
+        </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <?php
+                $email = $_SESSION["email"] ?? null;
+
+                if (!empty($email)) {
+                    $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                    $result = $con->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $nome = $row["Nome"];
+                        $tipo_servico = $row["Servico_Prestado"];
+                        $avaliacao = $row["Avaliacao"];
+
+                        echo '<h5>' . $nome . '</h5>';
+                        echo '<h6>' . $tipo_servico . '</h6>';
+                        echo '<p class="proile-rating">Avaliação : <span>' . $avaliacao . '/5</span></p>';
+                    } else {
+                        echo "Usuário não encontrado.";
+                    }
+                }
+                ?>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-2 d-flex flex-column justify-content-evenly">
+            <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="perfilprestador.php">Salvar</a></button>
+            <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
+            <script>
+                function del_account() {
+                    if (confirm("Deletar sua conta?")) {
+                        window.location.href = "../../deleteUserAccount.php";
+                    }
+                }
+            </script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <p>Contato</p>
+                <div class="row">
+                    <?php
+                    $email = $_SESSION["email"] ?? null;
+
+                    if (!empty($email)) {
+                        $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                        $result = $con->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $telefone = $row["Telefone"];
+
+                            echo '<p>Telefone: <input type="text" placeholder="' . $telefone . '" value="' . $telefone . '" id="telUser" name="telUser"></p><br/>';
+                        }
+                    }
+                    ?>
                 </div>
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <?php
-                          $email = $_SESSION["email"] ?? null;
+                <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <?php
+                    $email = $_SESSION["email"] ?? null;
 
-                          if (!empty($email)) {
-                              $sql = "SELECT * FROM Prestador WHERE email = '$email'";
-                              $result = $con->query($sql);
+                    if (!empty($email)) {
+                        $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                        $result = $con->query($sql);
 
-                              if ($result->num_rows > 0) {
-                                  $row = $result->fetch_assoc();
-                                  $nome = $row["Nome"];
-                                  $tipo_servico = $row["Servico_prestado"];
-                                  $avaliacao = $row["Avaliacao"];
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            $nome = $row["Nome"];
+                            $tipo_servico = $row["Servico_Prestado"];
+                            $avaliacao = $row["Avaliacao"];
 
-                                  $sql_servicos = "SELECT Nome_servico FROM Servico";
-                                  $result_servicos = $con->query($sql_servicos);
-                                  $servicosDisponiveis = array();
-                                  while ($row_servico = $result_servicos->fetch_assoc()) {
-                                      $servicosDisponiveis[] = $row_servico['Nome_servico'];
-                                  }
-
-                                  echo '<div class="row">';
-                                  echo '<div class="col-md-6">';
-                                  echo '<label>Nome</label>';
-                                  echo '</div>';
-                                  echo '<div class="col-md-6">';
-                                  echo '<input type="text" placeholder="'. $nome . '" value="' . $nome . '"></p>';
-                                  echo '</div>';
-                                  echo '</div>';
-                                  echo '<div class="row">';
-                                  echo '<div class="col-md-6">';
-                                  echo '<label>Serviço</label>';
-                                  echo '</div>';
-                                  echo '<div class="col-md-6">';
-                                  echo '<select class="form-style" id="servico" name="servico" aria-placeholder="Selecione um Serviço" autocomplete="off">';
-                                  echo '<option value="" disabled>Selecione um serviço</option>';
-                                  foreach ($servicosDisponiveis as $servico) {
-                                      $selected = ($servico == $tipo_servico) ? 'selected' : '';
-                                      echo "<option value='" . htmlspecialchars($servico) . "' $selected>" . htmlspecialchars($servico) . "</option>";
-                                  }
-                                  echo '</select>';
-                                  echo '</div>';
-                                  echo '</div>'; 
-
-                                  echo '<div class="row">';
-                                  echo '<div class="col-md-6">';
-                                  echo '<label>Preço</label>';
-                                  echo '</div>';
-                                  echo '<div class="col-md-6">';
-                                  echo '<input type="text" placeholder="30/hr" value="30/hr"></p>';
-                                  echo '</div>';
-                                  echo '</div>';
-                                }
-                                    else {
-                                  echo "Usuário não encontrado.";
-                              }
+                            $sql_servicos = "SELECT Nome_servico FROM Servico";
+                            $result_servicos = $con->query($sql_servicos);
+                            $servicosDisponiveis = array();
+                            while ($row_servico = $result_servicos->fetch_assoc()) {
+                                $servicosDisponiveis[] = $row_servico['Nome_servico'];
                             }
-                            ?>
-                        </div>
-                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                            echo '<div class="row">';
+                            echo '<div class="col-md-6">';
+                            echo '<label>Nome</label>';
+                            echo '</div>';
+                            echo '<div class="col-md-6">';
+                            echo '<input type="text" placeholder="'. $nome . '" value="' . $nome . '" id="nameUser" name="nameUser"></p>';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="row">';
+                            echo '<div class="col-md-6">';
+                            echo '<label>Serviço</label>';
+                            echo '</div>';
+                            echo '<div class="col-md-6">';
+                            echo '<select class="form-style" id="servicoPrestador" name="servicoPrestador" aria-placeholder="Selecione um Serviço" autocomplete="off">';
+                            echo '<option value="" disabled>Selecione um serviço</option>';
+                            foreach ($servicosDisponiveis as $servico) {
+                                $selected = ($servico == $tipo_servico) ? 'selected' : '';
+                                echo "<option value='" . htmlspecialchars($servico) . "' $selected>" . htmlspecialchars($servico) . "</option>";
+                            }
+                            echo '</select>';
+                            echo '</div>';
+                            echo '</div>'; 
+                        }
+                        else {
+                            echo "Usuário não encontrado.";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
-        </form>           
+        </div>
+    </div>
+</form>
+
+           
     </div>
     <footer class="bg-dark">
       <div class="footer-top">

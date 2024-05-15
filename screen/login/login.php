@@ -33,7 +33,7 @@
         document.getElementById("registerFormPrestador").style.display = "initial";
         document.getElementById("usuario").classList.remove("active");
         document.getElementById("prestador").classList.add("active");
-        document.querySelector(".card-3d-wrapper").style.height = "120%";
+        document.querySelector(".card-3d-wrapper").style.height = "130%";
         activate = true;
     }
 
@@ -42,15 +42,20 @@
         document.getElementById("registerFormUser").style.display = "initial";
         document.getElementById("prestador").classList.remove("active");
         document.getElementById("usuario").classList.add("active");
-        document.querySelector(".card-3d-wrapper").style.height = "100%";
+        document.querySelector(".card-3d-wrapper").style.height = "120%";
         activate = false;
     }
 
     function gridToNormal(checkbox) {
         if(activate && checkbox.checked) {
-            document.querySelector(".card-3d-wrapper").style.height = "120%";
+            document.querySelector(".card-3d-wrapper").style.height = "130%";
         } else {
-            document.querySelector(".card-3d-wrapper").style.height = "100%";
+            if (checkbox.checked) {
+                document.querySelector(".card-3d-wrapper").style.height = "120%";
+            }
+            else {
+                document.querySelector(".card-3d-wrapper").style.height = "100%";
+            }
         }
     }
 
@@ -82,9 +87,9 @@
     const usernamePrestadorValue = usernamePrestador.value;
     const emailPrestadorValue = emailPrestador.value;
     const passwordPrestadorValue = passwordPrestador.value;
-        if (!regexUsername.test(usernamePrestadorValue) || !regexEmail.test(emailPrestadorValue) || !regexPass.test(passwordPrestadorValue)) {
-        console.log("Opa")
-        let errorMessage = document.getElementById('showErrorMessageSignUp');
+
+    let errorMessage = document.getElementById('showErrorMessageSignUp');
+    if (!regexUsername.test(usernamePrestadorValue) || !regexEmail.test(emailPrestadorValue) || !regexPass.test(passwordPrestadorValue)) {
         errorMessage.style.display = "initial";
         errorMessage.textContent = "Cadastro Incorreto";
         return false;
@@ -170,6 +175,15 @@
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
+                                                    <input type="text" name="sigtelUser" class="form-style"
+                                                        placeholder="Seu telefone" id="sigtelUser"
+                                                        autocomplete="off"
+                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"
+                                                        >
+                                                    <i class="fa-solid fa-phone"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
                                                     <input type="password"
                                                         class="form-style" 
                                                         id="sigpassUser" 
@@ -201,6 +215,15 @@
                                                         placeholder="Seu email" id="sigemailPrestador"
                                                         autocomplete="off">
                                                     <i class="fa-solid fa-at"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="text" name="sigtelPrestador" class="form-style"
+                                                        placeholder="Seu telefone" id="sigtelPrestador"
+                                                        autocomplete="off"
+                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"
+                                                        >
+                                                    <i class="fa-solid fa-phone"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="password"

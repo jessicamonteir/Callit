@@ -132,7 +132,21 @@
                     <div class="profile-work">
                         <p id="contato">Contato</p>
                         <div class="row">
-                        <p>Telefone: 997657654</p>
+                        <?php
+                          $email = $_SESSION["email"] ?? null;
+
+                          if (!empty($email)) {
+                              $sql = "SELECT * FROM Usuario WHERE email = '$email'";
+                              $result = $con->query($sql);
+                      
+                              if ($result->num_rows > 0) {
+                                  $row = $result->fetch_assoc();
+                                  $telefone = $row["Telefone"];
+
+                                  echo '<p>Telefone: ' . $telefone . '</p>';
+                              }
+                          }
+                        ?>
                         </div>
                         <p>Email: <?php echo $_SESSION["email"];?></p>
                     </div>

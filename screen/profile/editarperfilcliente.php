@@ -80,119 +80,129 @@
         </div>
       </nav>
       <div class="container emp-profile">
-        <form method="post">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-img">
-                        <img src="/Callit/Images/Profile_Images/homem perfil.jpg" alt=""/>
-                        <div class="file btn btn-lg btn-primary">
-                            Mudar foto
-                            <input type="file" name="file" placeholder="imagem"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="profile-head">
-                      <?php
-                          $email = $_SESSION["email"] ?? null;
-
-                          if (!empty($email)) {
-                              $sql = "SELECT * FROM Usuario WHERE email = '$email'";
-                              $result = $con->query($sql);
-                      
-                              if ($result->num_rows > 0) {
-                                  $row = $result->fetch_assoc();
-                                  $nome = $row["Nome"];
-
-                                  echo "<h5>". $nome ."</h5>";
-                              }
-                          }
-                        ?> 
-                                <h6>
-                                    Cliente
-                                </h6>
-                                <p class="proile-rating">Avaliação : <span>4.6/5</span></p>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 d-flex flex-column justify-content-evenly">
-                    <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="perfilcliente.php">Salvar</a></button>
-                    <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
-                    <script>
-                        function del_account() {
-                            if (confirm("Deletar sua conta?")) {
-                              window.location.href = "../../deleteUserAccount.php";
-                            }
-                        }
-                    </script>
+      <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente">
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="profile-img">
+                      <img src="/Callit/Images/Profile_Images/homem perfil.jpg" alt=""/>
+                      <div class="file btn btn-lg btn-primary">
+                          Mudar foto
+                          <input type="file" name="file" placeholder="imagem"/>
+                      </div>
                   </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="profile-work">
-                        <p>Contato</p>
-                        <div class="row">
-                        <p>Telefone: <input type="text" placeholder="997657654"></p><br/>
-                        </div>
-                        <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="tab-content profile-tab" id="myTabContent">
-                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                   
-                        <?php
+              </div>
+              <div class="col-md-6">
+                  <div class="profile-head">
+                      <?php
+                      $email = $_SESSION["email"] ?? null;
+
+                      if (!empty($email)) {
+                          $sql = "SELECT * FROM Usuario WHERE email = '$email'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+                              $nome = $row["Nome"];
+
+                              echo "<h5>". $nome ."</h5>";
+                          }
+                      }
+                      ?> 
+                      <h6>Cliente</h6>
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-md-2 d-flex flex-column justify-content-evenly">
+                  <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar">Salvar</button>
+                  <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
+                  <script>
+                      function del_account() {
+                          if (confirm("Deletar sua conta?")) {
+                              window.location.href = "../../deleteUserAccount.php";
+                          }
+                      }
+                  </script>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="profile-work">
+                      <p>Contato</p>
+                      <div class="row">
+                          <?php
                           $email = $_SESSION["email"] ?? null;
 
                           if (!empty($email)) {
                               $sql = "SELECT * FROM Usuario WHERE email = '$email'";
                               $result = $con->query($sql);
-                      
+
+                              if ($result->num_rows > 0) {
+                                  $row = $result->fetch_assoc();
+                                  $telefone = $row["Telefone"];
+                                  ?>
+
+                                  <p>Telefone: <input type="text" placeholder="<?php echo $telefone ?>" value="<?php echo $telefone ?>" id="telUser" name="telUser" autocomplete="off"
+                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"></p><br/>
+                                  <?php
+                              }
+                          }
+                          ?>
+                      </div>
+                      <p>Email: <?php echo $_SESSION["email"]; ?></p><br/>
+                  </div>
+              </div>
+              <div class="col-md-8">
+                  <div class="tab-content profile-tab" id="myTabContent">
+                      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                          <?php
+                          $email = $_SESSION["email"] ?? null;
+
+                          if (!empty($email)) {
+                              $sql = "SELECT * FROM Usuario WHERE email = '$email'";
+                              $result = $con->query($sql);
+
                               if ($result->num_rows > 0) {
                                   $row = $result->fetch_assoc();
                                   $nome = $row["Nome"];
-
-                                  echo '<div class="row">';
-                                  echo '<div class="col-md-6">';
-                                  echo '<label>Nome</label>';
-                                  echo '</div>';
-                                  echo '<div class="col-md-6">';
-                                  echo '<input type="text" placeholder="André Duarte" value="' . $nome . '"></p>';
-                                  echo '</div>';
-                                  echo '</div>';
+                                  ?>
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <label>Nome</label>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <input type="text" placeholder="<?php echo $nome ?>" value="<?php echo $nome ?>" id="nameUser" name="nameUser">
+                                      </div>
+                                  </div>
+                                  <?php
                               }
                           }
-                        ?> 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Serviços já contratados</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>6</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Preferência de serviço</label>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Jardineiro</p>
-                                        </div>
-                                    </div>
-                                    
-                        </div>
-                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>           
+                          ?> 
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Serviços já contratados</label>
+                              </div>
+                              <div class="col-md-6">
+                                  <p>6</p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Preferência de serviço</label>
+                              </div>
+                              <div class="col-md-6">
+                                  <p>Jardineiro</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
     </div>
     <footer class="bg-dark">
         <div class="footer-top">
