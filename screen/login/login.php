@@ -34,6 +34,10 @@
         document.getElementById("usuario").classList.remove("active");
         document.getElementById("prestador").classList.add("active");
         document.querySelector(".card-3d-wrapper").style.height = "130%";
+        document.documentElement.style.setProperty('--main-color', '#75df74');
+        document.documentElement.style.setProperty('--sec-color', '#167010');
+        document.documentElement.style.setProperty('--ter-color', '#rgba(32, 112, 16, 0.2)');
+        document.documentElement.style.setProperty('--qua-color', '#129d08');
         activate = true;
     }
 
@@ -43,6 +47,10 @@
         document.getElementById("prestador").classList.remove("active");
         document.getElementById("usuario").classList.add("active");
         document.querySelector(".card-3d-wrapper").style.height = "120%";
+        document.documentElement.style.setProperty('--main-color', '#75b5ff');
+        document.documentElement.style.setProperty('--sec-color', '#102770');
+        document.documentElement.style.setProperty('--ter-color', 'rgba(16, 39, 112, .2)');
+        document.documentElement.style.setProperty('--qua-color', '#0a58ca');
         activate = false;
     }
 
@@ -157,12 +165,12 @@
 
                                                 <div class="d-flex mb-3">
                                                     <div class="flex-grow-1">
-                                                        <button type="button" class="btn btn-primary" id="usuario" onclick="hidePrestador()">
+                                                        <button type="button" class="btn" id="usuario" onclick="hidePrestador()">
                                                             Usuário
                                                         </button>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <button type="button" class="btn btn-primary" id="prestador" onclick="hideUser()">
+                                                        <button type="button" class="btn" id="prestador" onclick="hideUser()">
                                                             Prestador
                                                         </button>
                                                     </div>
