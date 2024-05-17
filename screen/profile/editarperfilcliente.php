@@ -112,7 +112,9 @@
                       <ul class="nav nav-tabs" id="myTab" role="tablist">
                           <li class="nav-item">
                               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
+
                           </li>
+                         
                       </ul>
                   </div>
               </div>
@@ -196,6 +198,29 @@
                               </div>
                               <div class="col-md-6">
                                   <p>Jardineiro</p>
+                              </div>
+                          </div>
+                          <div class="profile-head">
+                          <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Alterar senha</a>
+                            </li>
+                          </ul>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Sua senha atual</label>
+                              </div>
+                              <div class="col-md-6">
+                                <input type="text" placeholder="" id="senhaAtual" name="senhaAtual">
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <label>Nova senha</label>
+                              </div>
+                              <div class="col-md-6">
+                                <input type="text" placeholder="" id="senhaNova" name="senhaNova">
                               </div>
                           </div>
                       </div>
