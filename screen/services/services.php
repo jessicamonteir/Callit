@@ -13,13 +13,36 @@
   <title>Serviços</title>
 </head>
 <body>
+<?php if (isset($_SESSION['USUARIO'])){
+
+  }
+  elseif (isset($_SESSION['PRESTADOR'])){
+    echo '<script type="text/javascript">',
+    'document.addEventListener("DOMContentLoaded", function() {',
+    'prestadorScreen();',
+    '});',
+    '</script>';
+  }
+  else{
+    header('Location: /Callit/screen/login/login.php');
+    exit;}
+    ?>
+
+  <script type="text/javascript">
+    function prestadorScreen() {
+      document.documentElement.style.setProperty('--main-color', '#75df74');
+      document.documentElement.style.setProperty('--light-main', '#9fffac');
+      document.querySelector('.navlogo').src = '/Callit/Images/Logo/logopnglightgreen.png';
+      document.querySelector('.logoFotter').src = '/Callit/Images/Logo/logolight1.png';
+    }
+  </script>
   <!--Nav-->
     <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
         <div class="container">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="../../main.php"><strong><img class="navlogo" src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>

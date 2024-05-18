@@ -27,7 +27,7 @@ if(!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !em
             $userId = $row["Email"];
             $_SESSION["email"] = $userId;
             $_SESSION["PRESTADOR"] = false;
-
+            $_SESSION["USUARIO"] = TRUE;
             header("Location: ../../main.php");
             exit();
         } else {
@@ -49,7 +49,7 @@ if(!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !em
             $userId = $row["Email"];
             $_SESSION["email"] = $userId;
             $_SESSION["PRESTADOR"] = true;
-
+            $_SESSION["USUARIO"] = false;
             header("Location: ../../main.php");
             exit();
         } else {

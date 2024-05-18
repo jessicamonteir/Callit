@@ -38,6 +38,7 @@
         document.documentElement.style.setProperty('--sec-color', '#167010');
         document.documentElement.style.setProperty('--ter-color', '#rgba(32, 112, 16, 0.2)');
         document.documentElement.style.setProperty('--qua-color', '#129d08');
+        document.querySelector('.logo').src = '/Callit/Images/Logo/logopnglightgreen.png';
         activate = true;
     }
 
@@ -51,10 +52,16 @@
         document.documentElement.style.setProperty('--sec-color', '#102770');
         document.documentElement.style.setProperty('--ter-color', 'rgba(16, 39, 112, .2)');
         document.documentElement.style.setProperty('--qua-color', '#0a58ca');
+        document.querySelector('.logo').src = '/Callit/Images/Logo/logopng.png';
         activate = false;
     }
 
     function gridToNormal(checkbox) {
+        document.documentElement.style.setProperty('--main-color', '#75b5ff');
+        document.documentElement.style.setProperty('--sec-color', '#102770');
+        document.documentElement.style.setProperty('--ter-color', 'rgba(16, 39, 112, .2)');
+        document.documentElement.style.setProperty('--qua-color', '#0a58ca');
+        document.querySelector('.logo').src = '/Callit/Images/Logo/logopng.png';
         if(activate && checkbox.checked) {
             document.querySelector(".card-3d-wrapper").style.height = "130%";
         } else {

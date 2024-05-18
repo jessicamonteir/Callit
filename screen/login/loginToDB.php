@@ -15,6 +15,7 @@ if (!empty($email) && !empty($password)) {
         if ($resultUsuario->num_rows > 0) {
             $_SESSION["email"] = $email;
             $_SESSION["PRESTADOR"] = false;
+            $_SESSION["USUARIO"] = true;
             header("Location: ../../main.php");
             exit();
         } else {
@@ -26,6 +27,7 @@ if (!empty($email) && !empty($password)) {
                 if ($resultPrestador->num_rows > 0) {
                     $_SESSION["email"] = $email;
                     $_SESSION["PRESTADOR"] = true;
+                    $_SESSION["USUARIO"] = false;
                     header("Location: ../../main.php");
                     exit();
                 } else {
