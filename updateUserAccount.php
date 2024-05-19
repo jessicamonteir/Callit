@@ -4,16 +4,18 @@
 
     $email = $_SESSION["email"] ?? null;
     $isPrestador = $_SESSION["PRESTADOR"] ?? null;
+    
+    $imagem_binario = null;
 
     if (!empty($email)) 
     {
         if ($_SESSION["PRESTADOR"] === true) 
         {
             $table = "Prestador";
-            $header = "/Callit/screen/profile/perfilprestador.php";
+            $header = "/Callit/screen/profile/perfilprestador.php?email=" . urlencode($_SESSION["email"]);
         } else {
             $table = "Usuario";
-            $header = "/Callit/screen/profile/perfilcliente.php";
+            $header = "/Callit/screen/profile/perfilcliente.php?email=" . urlencode($_SESSION["email"]);
         }
 
         $nome = $_POST['nameUser'] ?? null;
@@ -21,6 +23,7 @@
         $servicoPrestado = $_POST['servicoPrestador'] ?? null;
         $senhaAtual = $_POST['senhaAtual'] ?? null;
         $senhaNova = $_POST['senhaNova'] ?? null;
+        $imagemNova = $_FILES['imagem'] ?? null;
 
         if (!empty($nome) && !empty($telefone)) 
         {
@@ -43,6 +46,20 @@
                 }
             }
 
+            if (!empty($imagemNova["name"])) {
+                $imagem_nome = $imagemNova["name"];
+                $imagem_temp = $imagemNova["tmp_name"];
+            
+                $destino = __DIR__ . "/Images/UserImages/" . $imagem_nome;
+
+                if (move_uploaded_file($imagem_temp, $destino)) {
+                    $imagem_binario = file_get_contents($destino);
+                } else {
+                    echo "Erro ao mover o arquivo para o destino.";
+                    exit();
+                }
+            }
+
             $senhaNovaCriptografada = !empty($senhaNova) ? md5($senhaNova) : null;
             
             $valueSet = "Nome = '$nome', Telefone = '$telefone'";
@@ -55,6 +72,19 @@
             if (!empty($senhaNovaCriptografada)) 
             {
                 $valueSet .= ", Senha ='$senhaNovaCriptografada'";
+            }
+
+            if (!empty($imagem_binario)) {
+                $sqlUpdateImagem = "UPDATE $table SET Foto_Perfil = ? WHERE email = ?";
+                
+                $stmtImagem = $con->prepare($sqlUpdateImagem);
+                $stmtImagem->bind_param("bs", $imagem_binario, $email);
+                
+                if (!$stmtImagem->execute()) {
+                    die("Erro ao atualizar a foto de perfil: " . $stmtImagem->error);
+                }
+                $stmtImagem->close();
+
             }
 
             $sqlUpdate = "UPDATE $table SET $valueSet WHERE email = '$email'";

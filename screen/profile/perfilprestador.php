@@ -1,6 +1,15 @@
 <?php
   session_start();
   include('../../conn.php');
+
+  if(isset($_GET['email'])) 
+  {
+    $email = $_GET['email'];
+  }
+  else
+  {
+    echo "Email não fornecido.";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +20,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="perfilprestador.css">
-    <link rel="stylesheet" href="/css.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/css/calendar-1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
@@ -60,13 +68,13 @@
               <?php 
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
@@ -89,15 +97,23 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="/Callit/Images/Profile_Images/professora1.jpg" alt=""/>
-                      
+                    <?php
+                      if (!empty($email)) {
+                          $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                      }
+                    ?>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
                               <?php
-                                $email = $_SESSION["email"] ?? null;
-
                                 if (!empty($email)) {
                                     $sql = "SELECT * FROM Prestador WHERE email = '$email'";
                                     $result = $con->query($sql);
@@ -121,17 +137,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2 flex-column justify-content-evenly">
-                  <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilprestador.php">Editar Perfil</a></button>
-                  <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
-                  <script>
-                      function session_out() {
-                          if (confirm("Sair da sessão atual?")) {
-                              window.location.href = "../../session_out.php";
+                <?php
+                  if ($email == $_SESSION["email"])
+                  {
+                    ?>
+                    <div class="col-md-2 flex-column justify-content-evenly">
+                      <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilprestador.php">Editar Perfil</a></button>
+                      <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
+                      <script>
+                          function session_out() {
+                              if (confirm("Sair da sessão atual?")) {
+                                  window.location.href = "../../session_out.php";
+                              }
                           }
-                      }
-                  </script>
-                </div>
+                      </script>
+                    </div>
+                    <?php
+                  }
+                ?>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -139,8 +162,6 @@
                         <p id="contato">Contato</p>
                         <div class="row">
                         <?php
-                          $email = $_SESSION["email"] ?? null;
-
                           if (!empty($email)) {
                               $sql = "SELECT * FROM Prestador WHERE email = '$email'";
                               $result = $con->query($sql);
@@ -154,7 +175,7 @@
                           }
                         ?>
                         </div>
-                        <p>Email: <?php echo $_SESSION["email"]; ?></p>
+                        <p>Email: <?php echo $email;?></p>
                         <div class="container">
                           <div class="chatbox">
                               <div class="chatbox__support">
@@ -203,8 +224,6 @@
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             
                                   <?php
-                                    $email = $_SESSION["email"] ?? null;
-
                                     if (!empty($email)) {
                                         $sql = "SELECT * FROM Prestador WHERE email = '$email'";
                                         $result = $con->query($sql);

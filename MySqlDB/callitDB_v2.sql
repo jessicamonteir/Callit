@@ -7,7 +7,7 @@ CREATE TABLE Usuario (
     Email VARCHAR(100) NOT NULL,
     Senha VARCHAR(200) NOT NULL,
     Telefone VARCHAR(20) NOT NULL,
-    Foto_Perfil BLOB
+    Foto_Perfil LONGBLOB
 );
 
 CREATE TABLE Prestador (
@@ -18,7 +18,7 @@ CREATE TABLE Prestador (
     Avaliacao INT, /* Média de avaliação do prestador */
     Senha VARCHAR(200) NOT NULL,
     Telefone VARCHAR(20) NOT NULL,
-    Foto_Perfil BLOB
+    Foto_Perfil LONGBLOB
 );
 
 CREATE TABLE Servico (

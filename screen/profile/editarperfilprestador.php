@@ -36,7 +36,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="perfilprestador.css">
-    <link rel="stylesheet" href="/css.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/css/calendar-1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
@@ -78,22 +77,22 @@
           <li class="nav-item">
           <?php 
             if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
-            ?>
-            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
-              <i class="fa-solid fa-circle-user me-1"></i>
-            </a>
-            <?php
-            } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
-            ?>
-            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
-              <i class="fa-solid fa-circle-user me-1"></i>
-            </a>
-            <?php
-            } else {
-            ?>
-            <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
-              Entrar
-            </a>
+              ?>
+              <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
+                <i class="fa-solid fa-circle-user me-1"></i>
+              </a>
+              <?php
+              } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
+              ?>
+              <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
+                <i class="fa-solid fa-circle-user me-1"></i>
+              </a>
+              <?php
+              } else {
+              ?>
+              <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+                Entrar
+              </a>
             <?php
             }
           ?>
@@ -111,14 +110,28 @@
           <span aria-hidden="true">&times;</span>
       </button>
     </div>
-  <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente" onsubmit="return validarSenhaAtual();">
+  <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente" enctype="multipart/form-data" onsubmit="return validarSenhaAtual();">
     <div class="row">
         <div class="col-md-4">
             <div class="profile-img">
+                <?php
+                  $email = $_SESSION["email"] ?? null;
+
+                  if (!empty($email)) {
+                      $sql = "SELECT * FROM Prestador WHERE email = '$email'";
+                      $result = $con->query($sql);
+
+                      if ($result->num_rows > 0) {
+                          $row = $result->fetch_assoc();
+
+                          echo '<img class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                      }
+                  }
+                ?>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                 <div class="file btn btn-lg btn-primary">
                     Mudar foto
-                    <input type="file" name="file"/>
+                    <input type="file" name="imagem" placeholder="imagem"/>
                 </div>
             </div>
         </div>
@@ -257,7 +270,10 @@
                                   <label>Sua senha atual</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="password" placeholder="" id="senhaAtual" name="senhaAtual">
+                                <input type="password" placeholder="" 
+                                id="senhaAtual" 
+                                name="senhaAtual"
+                                oninput="inserirSenhaNova()">
                               </div>
                           </div>
                           <div class="row">
@@ -373,14 +389,25 @@
   }
 
   function validarSenhaNova() {
-        var senhaNova = document.getElementById('senhaNova').value;
-        var senhaAtualInput = document.getElementById('senhaAtual');
-        
-        if (senhaNova.trim() !== '') {
-            senhaAtualInput.required = true;
-        } else {
-            senhaAtualInput.required = false;
-        }
-    }
+      var senhaNova = document.getElementById('senhaNova').value;
+      var senhaAtualInput = document.getElementById('senhaAtual');
+      
+      if (senhaNova.trim() !== '') {
+          senhaAtualInput.required = true;
+      } else {
+          senhaAtualInput.required = false;
+      }
+  }
+
+  function inserirSenhaNova() {
+      var senhaAtual = document.getElementById('senhaAtual').value;
+      var senhaNovaInput = document.getElementById('senhaNova');
+      
+      if (senhaAtual.trim() !== '') {
+        senhaNovaInput.required = true;
+      } else {
+        senhaNovaInput.required = false;
+      }
+  }
 </script>
 </html>

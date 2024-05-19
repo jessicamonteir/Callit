@@ -1,6 +1,15 @@
 <?php 
   session_start();
   include('../../conn.php');
+
+  if(isset($_GET['email'])) 
+  {
+    $email = $_GET['email'];
+  }
+  else
+  {
+    echo "Email não fornecido.";
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,13 +63,13 @@
               <?php 
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
@@ -84,15 +93,23 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                        <img src="/Callit/Images/Profile_Images/homem perfil.jpg" alt=""/>
-                        
+                      <?php
+                        if (!empty($email)) {
+                            $sql = "SELECT * FROM Usuario WHERE email = '$email'";
+                            $result = $con->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                $row = $result->fetch_assoc();
+
+                                echo '<img class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                            }
+                        }
+                      ?>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
                       <?php
-                        $email = $_SESSION["email"] ?? null;
-
                         if (!empty($email)) {
                             $sql = "SELECT * FROM Usuario WHERE email = '$email'";
                             $result = $con->query($sql);
@@ -115,17 +132,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-2  flex-column justify-content-evenly">
-                    <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilcliente.php">Editar Perfil</a></button>
-                    <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
-                    <script>
-                        function session_out() {
-                            if (confirm("Sair da sessão atual?")) {
-                                window.location.href = "../../session_out.php";
-                            }
-                        }
-                    </script>
-                </div>
+                <?php
+                  if ($email == $_SESSION["email"])
+                  {
+                    ?>
+                      <div class="col-md-2  flex-column justify-content-evenly">
+                          <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="editarperfilcliente.php">Editar Perfil</a></button>
+                          <button type="button" class="profile-edit-btn bg-danger text-white" onclick="session_out()">Sair da Sessão</button>
+                          <script>
+                              function session_out() {
+                                  if (confirm("Sair da sessão atual?")) {
+                                      window.location.href = "../../session_out.php";
+                                  }
+                              }
+                          </script>
+                      </div>
+                    <?php
+                  }
+                ?>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -133,8 +157,6 @@
                         <p id="contato">Contato</p>
                         <div class="row">
                         <?php
-                          $email = $_SESSION["email"] ?? null;
-
                           if (!empty($email)) {
                               $sql = "SELECT * FROM Usuario WHERE email = '$email'";
                               $result = $con->query($sql);
@@ -148,15 +170,13 @@
                           }
                         ?>
                         </div>
-                        <p>Email: <?php echo $_SESSION["email"];?></p>
+                        <p>Email: <?php echo $email;?></p>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                           <?php
-                          $email = $_SESSION["email"] ?? null;
-
                           if (!empty($email)) {
                               $sql = "SELECT * FROM Usuario WHERE email = '$email'";
                               $result = $con->query($sql);

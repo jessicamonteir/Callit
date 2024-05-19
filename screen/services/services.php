@@ -1,5 +1,7 @@
 <?php
   session_start();
+
+  include('../../conn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +15,8 @@
   <title>Serviços</title>
 </head>
 <body>
-<?php if (isset($_SESSION['USUARIO'])){
+<?php 
+  if (isset($_SESSION['USUARIO'])){
 
   }
   elseif (isset($_SESSION['PRESTADOR'])){
@@ -26,7 +29,7 @@
   else{
     header('Location: /Callit/screen/login/login.php');
     exit;}
-    ?>
+?>
 
   <script type="text/javascript">
     function prestadorScreen() {
@@ -74,13 +77,13 @@
               <?php 
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php">
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                   <i class="fa-solid fa-circle-user me-1"></i>
                 </a>
                 <?php
@@ -110,6 +113,45 @@
     </nav>
     <!--Areas-->
     <div class="row">
+    <?php
+      $sql = "SELECT * FROM Prestador";
+      $result = $con->query($sql);
+
+      if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+              ?>
+              <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
+                  <div class="product"> <img src="/Callit/Images/imagensServicos/<?php echo $row['Imagem']; ?>" alt="">
+                      <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
+                          <a href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($row["Email"]); ?>"><li class="icon"><i class="ri-user-fill"></i></li></a>
+                      </ul>
+                  </div>
+                  <div class="tag bg-<?php echo $row["Servico_Prestado"]; ?>"><?php echo $row["Servico_Prestado"]; ?></div>
+                  <div class="title pt-4 pb-1"><?php echo $row["Nome"]; ?></div>
+                  <div class="d-flex align-content-center justify-content-center">
+                      <?php
+                      $rating = $row["Avaliacao"];
+                      for ($i = 0; $i < 5; $i++) {
+                          if ($rating >= 1) {
+                              echo '<span class="fas fa-star"></span>';
+                          } elseif ($rating >= 0.5) {
+                              echo '<span class="fas fa-star-half-alt" style="color: goldenrod; font-size: 0.65rem;"></span>';
+                          } else {
+                              echo '<span class="far fa-star"></span>';
+                          }
+                          $rating--;
+                      }
+                      ?>
+                  </div>
+              </div>
+          <?php
+          }
+      } else {
+          echo "Nenhum prestador encontrado.";
+      }
+      ?>
+    </div>
+
         <div class="col-lg-3 col-sm-6 d-flex flex-column align-items-center justify-content-center product-item my-3">
             <div class="product"> <img src="/Callit/Images/imagensServicos/professora1.jpg" alt=""> 
                 <ul class="d-flex align-items-center justify-content-center list-unstyled icons">
