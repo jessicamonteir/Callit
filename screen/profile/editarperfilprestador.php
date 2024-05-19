@@ -2,6 +2,30 @@
   session_start();
 
   include('../../conn.php');
+
+  $email = $_SESSION["email"] ?? null;
+  
+  $senhaAtualCriptografada = null;
+
+  if (!empty($email)) 
+  {
+    $sqlUsuario = "SELECT Senha FROM Prestador WHERE email = '$email'";
+
+    $resultUsuario = $con->query($sqlUsuario);
+
+    if ($resultUsuario === FALSE) 
+    {
+      echo "Error: " . $sqlUsuario . "<br>" . $con->error;
+    }
+    else
+    {
+      if ($resultUsuario->num_rows > 0) 
+      {
+        $row = $resultUsuario->fetch_assoc();
+        $senhaAtualCriptografada = $row["Senha"];
+      }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +104,14 @@
       </div>
     </div>
   </nav>
-      <div class="container emp-profile">
-      <form method="post" action="../../updateUserAccount.php">
+  <div class="container emp-profile">
+    <div id="showErrorMessageInvalidPass" style="display:none;" class="alert alert-danger" role="alert">
+      Senha atual incorreta
+      <button type="button" class="close" onclick="fecharAlerta()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente" onsubmit="return validarSenhaAtual();">
     <div class="row">
         <div class="col-md-4">
             <div class="profile-img">
@@ -123,7 +153,7 @@
             </div>
         </div>
         <div class="col-md-2 flex-column justify-content-evenly">
-            <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar"><a href="perfilprestador.php">Salvar</a></button>
+            <button type="submit" class="profile-edit-btn" name="btnSave" value="Salvar">Salvar</button>
             <button type="button" class="profile-edit-btn bg-danger text-white" onclick="del_account()">Deletar Conta</button>
             <script>
                 function del_account() {
@@ -149,8 +179,11 @@
                         if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
                             $telefone = $row["Telefone"];
-
-                            echo '<p>Telefone: <input type="text" placeholder="' . $telefone . '" value="' . $telefone . '" id="telUser" name="telUser"></p><br/>';
+                            ?>
+                                  <p>Telefone: <input type="text" placeholder="<?php echo $telefone ?>" value="<?php echo $telefone ?>" id="telUser" name="telUser" autocomplete="off"
+                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"></p><br/>
+                            <?php
                         }
                     }
                     ?>
@@ -180,29 +213,32 @@
                             while ($row_servico = $result_servicos->fetch_assoc()) {
                                 $servicosDisponiveis[] = $row_servico['Nome_servico'];
                             }
-
-                            echo '<div class="row">';
-                            echo '<div class="col-md-6">';
-                            echo '<label>Nome</label>';
-                            echo '</div>';
-                            echo '<div class="col-md-6">';
-                            echo '<input type="text" placeholder="'. $nome . '" value="' . $nome . '" id="nameUser" name="nameUser"></p>';
-                            echo '</div>';
-                            echo '</div>';
-                            echo '<div class="row">';
-                            echo '<div class="col-md-6">';
-                            echo '<label>Serviço</label>';
-                            echo '</div>';
-                            echo '<div class="col-md-6">';
-                            echo '<select class="form-style" id="servicoPrestador" name="servicoPrestador" aria-placeholder="Selecione um Serviço" autocomplete="off">';
-                            echo '<option value="" disabled>Selecione um serviço</option>';
-                            foreach ($servicosDisponiveis as $servico) {
-                                $selected = ($servico == $tipo_servico) ? 'selected' : '';
-                                echo "<option value='" . htmlspecialchars($servico) . "' $selected>" . htmlspecialchars($servico) . "</option>";
-                            }
-                            echo '</select>';
-                            echo '</div>';
-                            echo '</div>'; 
+                            ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Nome</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="<?php echo $nome ?>" value="<?php echo $nome ?>" id="nameUser" name="nameUser">
+                                </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label>Serviço</label>
+                              </div>
+                              <div class="col-md-6">
+                                <select class="form-style" id="servicoPrestador" name="servicoPrestador" aria-placeholder="Selecione um Serviço" autocomplete="off">
+                                  <option value="" disabled>Selecione um serviço</option>
+                                  <?php
+                                  foreach ($servicosDisponiveis as $servico) {
+                                      $selected = ($servico == $tipo_servico) ? 'selected' : '';
+                                      echo "<option value='" . htmlspecialchars($servico) . "' $selected>" . htmlspecialchars($servico) . "</option>";
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
+                            <?php
                         }
                         else {
                             echo "Usuário não encontrado.";
@@ -221,15 +257,18 @@
                                   <label>Sua senha atual</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="text" placeholder="" id="senhaAtual" name="senhaAtual">
+                                <input type="password" placeholder="" id="senhaAtual" name="senhaAtual">
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-6">
-                                  <label>Nova senha</label>
+                                  <label for="senhaNova">Nova senha</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="text" placeholder="" id="senhaNova" name="senhaNova">
+                                <input type="password" placeholder="" id="senhaNova" name="senhaNova" 
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" 
+                                title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial."
+                                oninput="validarSenhaNova()">
                               </div>
                           </div>
                 </div>
@@ -237,8 +276,6 @@
         </div>
     </div>
 </form>
-
-           
     </div>
     <footer class="bg-dark">
       <div class="footer-top">
@@ -293,4 +330,57 @@
     </footer>
       
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function fecharAlerta() {
+      document.getElementById('showErrorMessageInvalidPass').style.display = "none";
+  }
+
+  function validarSenhaAtual() {
+    const senhaAtualEnviada = document.getElementById('senhaAtual').value;
+    const senhaAtualBanco = '<?php echo $senhaAtualCriptografada; ?>';
+    let senhaAtualEnviadaCriptografada;
+
+    if (senhaAtualEnviada) {
+        const dados = { senhaAtual: senhaAtualEnviada };
+        $.ajax({ 
+            url: '../../senhaAtualVerdadeira.php',
+            type: 'POST',
+            data: dados,
+            async: false,     
+            success: function(data) { 
+              senhaAtualEnviadaCriptografada = data;
+            },
+        });
+
+        if (senhaAtualEnviadaCriptografada === senhaAtualBanco)
+        {
+          return true;
+        }
+        else
+        {
+          document.getElementById('showErrorMessageInvalidPass').style.display = "block";
+          return false;
+        }
+    } else {
+        if (document.getElementById('senhaNova').value) {
+            document.getElementById('showErrorMessageInvalidPass').style.display = "block";
+            return false;
+        } else {
+            return true;
+        }
+    }
+  }
+
+  function validarSenhaNova() {
+        var senhaNova = document.getElementById('senhaNova').value;
+        var senhaAtualInput = document.getElementById('senhaAtual');
+        
+        if (senhaNova.trim() !== '') {
+            senhaAtualInput.required = true;
+        } else {
+            senhaAtualInput.required = false;
+        }
+    }
+</script>
 </html>

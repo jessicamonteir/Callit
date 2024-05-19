@@ -147,7 +147,7 @@
                                                 <div>
                                                     <?php
                                                     if (isset($_SESSION['error_message'])){
-                                                    echo '<h6 style="margin-top:10px">' . $_SESSION['error_message'] . '</h6>';
+                                                    echo '<h6 style="margin-top:10px; color: white !important">' . $_SESSION['error_message'] . '</h6>';
                                                     unset($_SESSION['error_message']);
                                                     }
                                                 ?>

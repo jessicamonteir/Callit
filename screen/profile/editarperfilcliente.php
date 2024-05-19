@@ -1,6 +1,31 @@
 <?php
   session_start();
+
   include('../../conn.php');
+
+  $email = $_SESSION["email"] ?? null;
+  
+  $senhaAtualCriptografada = null;
+
+  if (!empty($email)) 
+  {
+    $sqlUsuario = "SELECT Senha FROM Usuario WHERE email = '$email'";
+
+    $resultUsuario = $con->query($sqlUsuario);
+
+    if ($resultUsuario === FALSE) 
+    {
+      echo "Error: " . $sqlUsuario . "<br>" . $con->error;
+    }
+    else
+    {
+      if ($resultUsuario->num_rows > 0) 
+      {
+        $row = $resultUsuario->fetch_assoc();
+        $senhaAtualCriptografada = $row["Senha"];
+      }
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +105,13 @@
         </div>
       </nav>
       <div class="container emp-profile">
-      <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente">
+        <div id="showErrorMessageInvalidPass" style="display:none;" class="alert alert-danger" role="alert">
+          Senha atual incorreta
+          <button type="button" class="close" onclick="fecharAlerta()">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente" onsubmit="return validarSenhaAtual();">
           <div class="row">
               <div class="col-md-4">
                   <div class="profile-img">
@@ -212,15 +243,18 @@
                                   <label>Sua senha atual</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="text" placeholder="" id="senhaAtual" name="senhaAtual">
+                                <input type="password" placeholder="" id="senhaAtual" name="senhaAtual">
                               </div>
                           </div>
                           <div class="row">
                               <div class="col-md-6">
-                                  <label>Nova senha</label>
+                                  <label for="senhaNova">Nova senha</label>
                               </div>
                               <div class="col-md-6">
-                                <input type="text" placeholder="" id="senhaNova" name="senhaNova">
+                                <input type="password" placeholder="" id="senhaNova" name="senhaNova" 
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" 
+                                title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial."
+                                oninput="validarSenhaNova()">
                               </div>
                           </div>
                       </div>
@@ -280,6 +314,58 @@
           </div>
         </div>
       </footer>
-
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  function fecharAlerta() {
+      document.getElementById('showErrorMessageInvalidPass').style.display = "none";
+  }
+
+  function validarSenhaAtual() {
+    const senhaAtualEnviada = document.getElementById('senhaAtual').value;
+    const senhaAtualBanco = '<?php echo $senhaAtualCriptografada; ?>';
+    let senhaAtualEnviadaCriptografada;
+
+    if (senhaAtualEnviada) {
+        const dados = { senhaAtual: senhaAtualEnviada };
+        $.ajax({ 
+            url: '../../senhaAtualVerdadeira.php',
+            type: 'POST',
+            data: dados,
+            async: false,     
+            success: function(data) { 
+              senhaAtualEnviadaCriptografada = data;
+            },
+        });
+
+        if (senhaAtualEnviadaCriptografada === senhaAtualBanco)
+        {
+          return true;
+        }
+        else
+        {
+          document.getElementById('showErrorMessageInvalidPass').style.display = "block";
+          return false;
+        }
+    } else {
+        if (document.getElementById('senhaNova').value) {
+            document.getElementById('showErrorMessageInvalidPass').style.display = "block";
+            return false;
+        } else {
+            return true;
+        }
+    }
+  }
+  
+  function validarSenhaNova() {
+        var senhaNova = document.getElementById('senhaNova').value;
+        var senhaAtualInput = document.getElementById('senhaAtual');
+        
+        if (senhaNova.trim() !== '') {
+            senhaAtualInput.required = true;
+        } else {
+            senhaAtualInput.required = false;
+        }
+    }
+</script>
 </html>

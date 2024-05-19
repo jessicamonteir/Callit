@@ -6,7 +6,7 @@ CREATE TABLE Usuario (
     Nome VARCHAR(200) NOT NULL,
     Email VARCHAR(100) NOT NULL,
     Senha VARCHAR(200) NOT NULL,
-    Telefone VARCHAR(10) NOT NULL,
+    Telefone VARCHAR(20) NOT NULL,
     Foto_Perfil BLOB
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE Prestador (
     Servico_Prestado VARCHAR(25) NOT NULL,
     Avaliacao INT, /* Média de avaliação do prestador */
     Senha VARCHAR(200) NOT NULL,
-    Telefone VARCHAR(10) NOT NULL,
+    Telefone VARCHAR(20) NOT NULL,
     Foto_Perfil BLOB
 );
 
@@ -56,23 +56,3 @@ VALUES ('Jardinagem','Cortar grama'),
 ('Eletricista','Revisa a parte elétrica do local'),
 ('Pedreiro','Construção e Planejamento'),
 ('Pintor','Realiza a pintura do local desejado');
-
-SELECT * FROM Agenda;
-SELECT * FROM Prestador;
-SELECT * FROM Usuario;
-
-SELECT Nome_servico FROM Servico;
-SELECT * FROM AGENDA WHERE FK_ID_Prestador = 1 AND Data_Inicio_Semana = '2024-04-14';
-
-ALTER TABLE Prestador
-MODIFY Servico_prestado VARCHAR(25);
-ALTER TABLE Prestador
-MODIFY Senha VARCHAR(200);
-ALTER TABLE Usuario
-MODIFY Senha VARCHAR(200);
-
-DELETE FROM AGENDA;
-DELETE FROM Servico;
-
-DROP DATABASE CALLIT_V2;
-DROP TABLE SERVICO; 
