@@ -128,10 +128,9 @@
                       }
                   }
                 ?>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                 <div class="file btn btn-lg btn-primary">
                     Mudar foto
-                    <input type="file" name="imagem" placeholder="imagem"/>
+                    <input style="cursor: pointer;" type="file" name="imagem" placeholder="imagem"/>
                 </div>
             </div>
         </div>

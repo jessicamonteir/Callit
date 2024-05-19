@@ -129,10 +129,9 @@
                           }
                       }
                     ?>
-                      <img src="/Callit/Images/Profile_Images/homem perfil.jpg" alt=""/>
                       <div class="file btn btn-lg btn-primary">
                           Mudar foto
-                          <input type="file" name="imagem" placeholder="imagem"/>
+                          <input style="cursor: pointer;" type="file" name="imagem" placeholder="imagem"/>
                       </div>
                   </div>
               </div>

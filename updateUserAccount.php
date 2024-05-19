@@ -78,7 +78,7 @@
                 $sqlUpdateImagem = "UPDATE $table SET Foto_Perfil = ? WHERE email = ?";
                 
                 $stmtImagem = $con->prepare($sqlUpdateImagem);
-                $stmtImagem->bind_param("bs", $imagem_binario, $email);
+                $stmtImagem->bind_param("ss", $imagem_binario, $email);
                 
                 if (!$stmtImagem->execute()) {
                     die("Erro ao atualizar a foto de perfil: " . $stmtImagem->error);
