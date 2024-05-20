@@ -14,10 +14,19 @@ $telefonePrestador = $_POST['sigtelPrestador'] ?? null;
 $senhaPrestador = $_POST['sigpassPrestador'] ?? null;
 $servico = $_POST['servico'] ?? null;
 
-if(!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !empty($telefoneUsuario)){
+$imagePath = "../../../Callit/Images/Profile_Images/imagem_padrao.jpg";
+
+function getImageData($imagePath) {
+    $imageData = file_get_contents($imagePath);
+    return $imageData;
+}
+$imageData = getImageData($imagePath);
+$imageDataEscaped = $con->real_escape_string($imageData);
+
+if (!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !empty($telefoneUsuario)) {
     $senhaCripto = md5($senhaUsuario);
-    $sql = "INSERT INTO Usuario(Nome,Email,Senha,Telefone) VALUES('$nomeUsuario','$emailUsuario',
-    '" . $con->real_escape_string($senhaCripto) . "', '$telefoneUsuario')";
+    $sql = "INSERT INTO Usuario(Nome,Email,Senha,Telefone,Foto_Perfil) VALUES('$nomeUsuario','$emailUsuario',
+    '" . $con->real_escape_string($senhaCripto) . "', '$telefoneUsuario','$imageDataEscaped')";
 
     if ($con->query($sql) === TRUE) {
         $query = "SELECT Email FROM Usuario WHERE Email = '$emailUsuario'";
@@ -38,8 +47,8 @@ if(!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !em
     }
 } elseif (!empty($nomePrestador) && !empty($emailPrestador) && !empty($senhaPrestador) && !empty($servico) && !empty($telefonePrestador)) {
     $senhaCripto = md5($senhaPrestador);
-    $sql = "INSERT INTO Prestador(Nome,Email,Servico_Prestado,Senha,Telefone) VALUES('$nomePrestador','$emailPrestador'
-    ,'$servico','" . $con->real_escape_string($senhaCripto) . "','$telefonePrestador')";
+    $sql = "INSERT INTO Prestador(Nome,Email,Servico_Prestado,Senha,Telefone,Foto_Perfil) VALUES('$nomePrestador','$emailPrestador'
+    ,'$servico','" . $con->real_escape_string($senhaCripto) . "','$telefonePrestador','$imageDataEscaped')";
 
     if ($con->query($sql) === TRUE) {
         $query = "SELECT Email FROM Prestador WHERE Email = '$emailPrestador'";
@@ -63,3 +72,4 @@ if(!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !em
     exit;
 }
 ?>
+

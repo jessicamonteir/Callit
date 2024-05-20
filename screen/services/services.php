@@ -107,7 +107,30 @@
     <nav class="navbarsrv navbar-expand-md navbar-light">
         <div class="container-fluid p-0"> <a class="navbar-brand text-uppercase fw-800" href="#"><span class="border-red pe-2">Callit</span></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
             <div class="collapse navbar-collapse" id="myNav">
-                <div class="navbar-navsrv ms-auto"> <a class="nav-linksrv active" aria-current="page" href="#">Em Alta</a> <a class="nav-linksrv" href="#">Aulas Particulares</a> <a class="nav-linksrv" href="#">Culinária</a> <a class="nav-linksrv" href="#">Eletricista</a> <a class="nav-linksrv" href="#">Faz Tudo</a> <a class="nav-linksrv" href="#">Jardinagem</a> <a class="nav-linksrv" href="#">Serviço Doméstico</a> </div>
+                <div class="navbar-navsrv ms-auto"> <a class="nav-linksrv active" aria-current="page" href="#" data-service="Em Alta">Em Alta</a> <a class="nav-linksrv" href="#" data-service="Pedreiro">Pedreiro</a> <a class="nav-linksrv" href="#" data-service="Eletricista">Eletricista</a> <a class="nav-linksrv" href="#" data-service="Pintor">Pintor</a> <a class="nav-linksrv" href="#" data-service="Jardinagem">Jardinagem</a> <a class="nav-linksrv" href="#" data-service="Encanador">Encanador</a> </div>
+                <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    document.querySelectorAll('.nav-linksrv').forEach(function(link) {
+                        link.addEventListener('click', function(event) {
+                            var service = this.getAttribute('data-service');
+                            document.querySelectorAll('.nav-linksrv').forEach(function(link) {
+                              link.classList.remove('active');
+                            });
+                            this.classList.add("active");
+                            
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "/Callit/mudarFiltro.php", true);
+                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    document.querySelector('.row').innerHTML = xhr.responseText;
+                                }
+                            };
+                            xhr.send("service=" + encodeURIComponent(service));
+                        });
+                    });
+                });
+                </script>
             </div>
         </div>
     </nav>

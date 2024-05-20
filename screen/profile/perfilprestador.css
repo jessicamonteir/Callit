@@ -414,5 +414,10 @@ footer{
   .profile-tab p, label{
     margin-bottom: 15px;
   }
+  #imgperfil{
+    width: 300px;
+    height: 250px;
+  }
+
 
 

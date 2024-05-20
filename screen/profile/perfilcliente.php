@@ -101,7 +101,7 @@
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
 
-                                echo '<img class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                                echo '<img id="imgperfil" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
                             }
                         }
                       ?>
