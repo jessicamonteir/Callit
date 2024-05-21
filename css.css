@@ -369,3 +369,15 @@ footer .line{
 a{
   text-decoration: none;
 }
+#imgperfilheaderprestador{
+  aspect-ratio: 5/4;
+  height: 3.5rem;
+  border-radius: 50px;
+  border: 5px solid #75df74
+}
+#imgperfilheadercliente{
+  aspect-ratio: 5/4;
+  height: 3.5rem;
+  border-radius: 50px;
+  border: 5px solid var(--c-brand)
+}

@@ -19,8 +19,8 @@
     <title>Perfil</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
     <link rel="stylesheet" href="perfilprestador.css">
-    <link rel="stylesheet" href="/css.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/css/calendar-1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
@@ -31,31 +31,31 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png"></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
               <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-              <button class="btn corSearch text-white">Pesquisar</button>
+              <button class="btn corSearch text-white linkskheader">Pesquisar</button>
             </div>
           </div>
           <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <div class="ms-auto d-none d-lg-block">
               <div class="input-group">
                 <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-                <button class="btn corSearch text-white">Pesquisar</button>
+                <input type="text" class="form-control border-warningg " style="color:#7a7a7a">
+                <button class="btn corSearch text-white linkskheader btnheader">Pesquisar</button>
               </div>
             </div>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="../../main.php">Home</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
@@ -64,13 +64,31 @@
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Usuario WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheadercliente" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Prestador WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheaderprestador" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } else {

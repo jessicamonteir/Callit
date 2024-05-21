@@ -1,5 +1,6 @@
 <?php 
   session_start();
+  include("conn.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
     <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -55,13 +57,31 @@
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Usuario WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheadercliente" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Prestador WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheaderprestador" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } else {

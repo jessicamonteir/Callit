@@ -5,6 +5,7 @@
 :root{
     --c-dark: #212529;
     --main-color:#75b5ff;
+    --c-brand:#75b5ff;
     --c-brand-light:#9fccff;
     --c-brand-rgb:89, 138, 195;
     --c-brand-rgb2:66,154,255;
@@ -115,7 +116,7 @@
 }
 
 body {
-    background-color: var(--main-color);
+    background-color: var(--jardim);
     font-family: var(--font-base);
 }
 
@@ -258,31 +259,31 @@ body {
 }
 
 /*TAGS*/
-.bg-jardim {
+.bg-Jardinagem {
     background-color: var(--jardim);
     color: black;
     border-top-left-radius: 4px;
 }
 
-.bg-aula {
+.bg-Encanador {
     background-color: var(--aula);
     color: black;
     border-top-left-radius: 4px;
 }
 
-.bg-faztudo {
+.bg-Pintor {
     background-color: var(--faztudo);
     color: black;
     border-top-left-radius: 4px;
 }
 
-.bg-domestico {
+.bg-Pedreiro {
     background-color: var(--domestico);
     color: black;
     border-top-left-radius: 4px;
 }
 
-.bg-eletricista {
+.bg-Eletricista {
     background-color: var(--eletricista);
     color: black;
     border-top-left-radius: 4px;
@@ -387,4 +388,20 @@ footer{
     background-color: inherit;
     color: inherit;
     text-decoration: inherit;
+  }
+  #imgperfil{
+    height: 190px;
+    aspect-ratio: 16/9;
+  }
+  #imgperfilheaderprestador{
+    aspect-ratio: 5/4;
+    height: 3.5rem;
+    border-radius: 50px;
+    border: 5px solid #75df74;
+  }
+  #imgperfilheadercliente{
+    aspect-ratio: 5/4;
+    height: 3.5rem;
+    border-radius: 50px;
+    border: 5px solid var(--c-brand);
   }

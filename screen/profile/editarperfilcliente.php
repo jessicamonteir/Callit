@@ -47,12 +47,12 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand navegacao" href="../../main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt=""></strong></a>
+            <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png"></strong></a>
           <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
             <div class="input-group">
               <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
               <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-              <button class="btn corSearch text-white">Pesquisar</button>
+              <button class="btn corSearch text-white linkskheader">Pesquisar</button>
             </div>
           </div>
           <div class=" collapse navbar-collapse" id="navbarNavDropdown">
@@ -60,18 +60,18 @@
               <div class="input-group">
                 <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-                <button class="btn corSearch text-white">Pesquisar</button>
+                <button class="btn corSearch text-white linkskheader btnheader">Pesquisar</button>
               </div>
             </div>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="../../main.php">Home</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="#services">Catálogos</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="#services">Catálogos</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/services/services.php">Serviços</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/screen/services/services.php">Serviços</a>
               </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
@@ -80,13 +80,31 @@
                 if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Usuario WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheadercliente" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["PRESTADOR"]){
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilprestador.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
-                  <i class="fa-solid fa-circle-user me-1"></i>
+                <?php
+                          $sql = "SELECT * FROM Prestador WHERE email = '".$_SESSION["email"]."'";
+                          $result = $con->query($sql);
+
+                          if ($result->num_rows > 0) {
+                              $row = $result->fetch_assoc();
+
+                              echo '<img id="imgperfilheaderprestador" class="imagemPessoa" src="data:image/png;base64,' . base64_encode($row["Foto_Perfil"]) . '"/>';
+                          }
+                    ?> 
                 </a>
                 <?php
                 } else {
