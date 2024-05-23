@@ -104,7 +104,17 @@
     if (!regexUsername.test(usernameValue) || !regexEmail.test(sigemailValue) || !regexPass.test(passwordValue)) {
         let errorMessage = document.getElementById('showErrorMessageSignUp');
         errorMessage.style.display = "initial";
-        errorMessage.textContent = "Cadastro Incorreto";
+        if (!regexUsername.test(usernameValue)){
+            errorMessage.textContent = "Nome Incorreto";
+        }
+        if (!regexEmail.test(sigemailValue)){
+            errorMessage.textContent = "Email Incorreto";
+        }
+        if (!regexPass.test(passwordValue)){
+            errorMessage.textContent = "Senha Incorreta";
+        }
+
+
         return false;
     }
     return true;
@@ -121,7 +131,15 @@
     let errorMessage = document.getElementById('showErrorMessageSignUp');
     if (!regexUsername.test(usernamePrestadorValue) || !regexEmail.test(emailPrestadorValue) || !regexPass.test(passwordPrestadorValue)) {
         errorMessage.style.display = "initial";
-        errorMessage.textContent = "Cadastro Incorreto";
+        if (!regexUsername.test(usernamePrestadorValue)){
+            errorMessage.textContent = "Nome Incorreto";
+        }
+        if (!regexEmail.test(emailPrestadorValue)){
+            errorMessage.textContent = "Email Incorreto";
+        }
+        if (!regexPass.test(passwordPrestadorValue)){
+            errorMessage.textContent = "Senha Incorreta";
+        }
         return false;
     }
     return true;

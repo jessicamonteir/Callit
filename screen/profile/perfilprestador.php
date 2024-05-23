@@ -10,6 +10,14 @@
   {
     echo "Email não fornecido.";
   }
+  $sqlId = "SELECT * FROM Prestador WHERE Email = '$email'";
+  $result = $con->query($sqlId);
+
+  if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $IdPrestador = $row["Id_prestador"];
+  }
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -274,48 +282,118 @@
                                         }
                                     }
                                   ?>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label>Disponibilidade:</label>
+                                  <?php
+                                  if ($email != $_SESSION["email"]){
+                                          ?>
+                                        <div class="profile-head">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                          <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Agendamento</a>
+                                          </li>
+                                        </ul>
+                                      
+                                        <div class="row">
+                                          <div class="col-md-9">
+                                            
+                                            <section class="container">
+                                              <form method="post" action="../../agendar.php">
+                                              <?php
+                                                echo "<input type='hidden' id='idPrestador' name='idPrestador' value='".$IdPrestador."'>";
+                                                echo "<input type='hidden' id='emailPrestador' name='emailPrestador' value='".$email."'>";
+                                                ?>
+                                                  <div class="input-group date" id="datepicker">
+                                                    <input type="text" class="form-control" id="data" name="data" placeholder="Escolha um dia"/>
+                                                      <span class="input-group-append">
+                                                        <span class="input-group-text bg-light d-block">
+                                                          <script>
+                                                              $(function() {
+                                                                var idPrestador = $('#idPrestador').val();
+                                                                $.ajax({
+                                                                  url: '../../ajustarCalendario.php',
+                                                                  method: 'POST',
+                                                                  data: { Id_Prestador: idPrestador },
+                                                                  success: function(data) {
+                                                                    datasBloqueadas = data;
+                                                                    $('#datepicker').datepicker({
+                                                                      format: "yyyy-mm-dd",
+                                                                      datesDisabled: datasBloqueadas
+                                                                    });
+                                                                  }
+                                                                });
+                                                              });
+                                                              
+                                                          </script>
+                                                          <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                      </span>
+                                                  </div>
+                                                  <div class="row">
+                                                    <div class="col-md-9">
+                                                      <input type="submit" style="margin-top:30px"class="profile-edit-btn" name="btnAgendar" value="Agendar">
+                                                    </div>
+                                                  </div>
+                                              </form>
+                                            </section>
+                                          </div>
                                         </div>
-                                        <div class="col-md-9">
-                                          <section class="container">
-                                            <form >
-                                                <div class="input-group date" id="datepicker">
-                                                  <input type="text" class="form-control" id="date" onChange="mudar()"/>
-                                                  <span class="input-group-append">
-                                                    <span class="input-group-text bg-light d-block">
-                                                    <script>
-                                                        var datasBloqueadas = [];
+                                        <?php }else{?>
+                                          <div class="profile-head">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                              <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Agendamentos</a>
+                                              </li>
+                                            </ul>
+                                          </div>
+                                          <h4>Seus agendamentos:</h4>
+                                          <?php 
+                                          if (!empty($email)) {
+                                              $sqlId = "SELECT * FROM Prestador WHERE Email = '".$_SESSION["email"]."'";
+                                              $result = $con->query($sqlId);
 
-                                                        function bloquearData(){
-                                                          var data = document.getElementById("date").value
-                                                          datasBloqueadas.push(data)
-                                                          console.log(datasBloqueadas)
-                                                          $('#datepicker').datepicker('setDatesDisabled', datasBloqueadas);
-                                                        }
-                                                        $(function(){
-                                                          $('#datepicker').datepicker({
-                                                              format: "dd/mm/yyyy",
-                                                              datesDisabled: datasBloqueadas,
-               
+                                              if ($result->num_rows > 0) {
+                                                  $row = $result->fetch_assoc();
+                                                  $IdPrestador = $row["Id_prestador"];
 
-                                                          });
-                                                        });
-                                                        function mudar(){
-                                                        var dataa = document.getElementById("date").value
-                                                        console.log(dataa)
-                                                        }
-                                                      </script>
-                                                      <i class="fa fa-calendar"></i>
-                                                    </span>
-                                                  </span>
-                                                </div>
-                                              
-                                            </form>
-                                          </section>
+                                                  $sql = "SELECT * FROM agenda WHERE FK_ID_prestador = '$IdPrestador'";
+                                                  $result = $con->query($sql);
+
+                                                  if ($result->num_rows > 0) {   
+                                                      while ($row = $result->fetch_assoc()) {
+                                                          $cliente = $row["Cliente"];
+                                                          $data = $row["Data_de_Agendamento"];
+                                                          $sqlCliente = "SELECT * FROM Usuario WHERE Email = '$cliente'";
+                                                          $resultCliente = $con->query($sqlCliente);
+
+                                                          if ($resultCliente->num_rows > 0) {
+                                                              while ($rowCliente = $resultCliente->fetch_assoc()) { 
+                                                                  $nomeCliente = $rowCliente["Nome"];
+                                                                  $telefone = $rowCliente["Telefone"];
+                                                                  echo '<div class="row">';
+                                                                  echo '<div class="col-md-3 ">';
+                                                                  echo '<span>Cliente: <a href="/Callit/screen/profile/perfilcliente.php?email=' . urlencode($cliente) . '">' . $nomeCliente . '</a></span>';
+                                                                  echo '</div>';
+                                                                  echo '<div class="col-md-4 ">';
+                                                                  echo '<span>Contato: '.$telefone.'</span>';
+                                                                  echo '</div>';
+                                                                  echo '<div class="col-md-3 ">';
+                                                                  echo '<span>Dia: '.$data.'</span>';
+                                                                  echo '</div>';
+                                                                  echo '</div>';
+                                                                  echo '<br>';
+                                                                  echo '<ul class="nav nav-tabs" id="myTab" role="tablist">';
+                                                                  echo '<li class="nav-item">';
+                                                                  echo '</li>';
+                                                                  echo '</ul>';
+                                                              }
+                                                          }
+                                                      }
+                                                  }
+                                              }
+                                          }
+                                          ?>
+                                                
+                                        <?php } ?>
                                         </div>
-
                                     </div>
 
                         </div>

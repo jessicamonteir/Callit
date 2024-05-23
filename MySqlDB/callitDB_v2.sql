@@ -28,7 +28,7 @@ CREATE TABLE Servico (
 );
 
 CREATE TABLE Agenda (
-	Id_Agendamento INT PRIMARY KEY AUTO_INCREMENT,
+    Id_Agendamento INT PRIMARY KEY AUTO_INCREMENT,
     FK_ID_Prestador INT,
     FK_ID_Servico INT,
     Dia_da_Semana VARCHAR(20), -- Segunda,Terça,...
@@ -36,9 +36,28 @@ CREATE TABLE Agenda (
     Data_Inicio_Semana DATE,  -- Data do início da semana (Facilita agrupamento de agendamentos)
     Disponibilidade BOOLEAN, -- Se o prestador está disponível no dia ou não
     Cliente VARCHAR(200), -- Nome do usuário que fez o agendamento
-	FOREIGN KEY (FK_ID_Prestador) REFERENCES Prestador (Id_prestador),
-	FOREIGN KEY (FK_ID_Servico) REFERENCES Servico (Id_servico)
+    FOREIGN KEY (FK_ID_Prestador) REFERENCES Prestador (Id_prestador),
+    FOREIGN KEY (FK_ID_Servico) REFERENCES Servico (Id_servico)
 );
+
+DELIMITER $$
+
+CREATE TRIGGER before_insert_agenda
+BEFORE INSERT ON Agenda
+FOR EACH ROW
+BEGIN
+    SET NEW.Dia_da_Semana = CASE DAYOFWEEK(NEW.Data_de_Agendamento)
+        WHEN 1 THEN 'Domingo'
+        WHEN 2 THEN 'Segunda'
+        WHEN 3 THEN 'Terça'
+        WHEN 4 THEN 'Quarta'
+        WHEN 5 THEN 'Quinta'
+        WHEN 6 THEN 'Sexta'
+        WHEN 7 THEN 'Sábado'
+    END;
+END$$
+
+DELIMITER ;
 /*
 INSERT INTO Agenda (FK_ID_Prestador, FK_ID_Servico, Dia_da_Semana, Disponibilidade, Data_de_Agendamento, Data_Inicio_Semana)
 VALUES (1, 1, 'Segunda', TRUE, '2024-04-15', '2024-04-14');
