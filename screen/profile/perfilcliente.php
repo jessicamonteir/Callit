@@ -229,6 +229,65 @@
                                             <p>Jardineiro</p>
                                         </div>
                                     </div>
+                                    <?php if ($email == $_SESSION["email"]){
+                                      ?>   
+                                    <div class="profile-head">
+                                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Agendamentos</a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                       
+                                    <h4>Seus agendamentos confirmados:</h4>
+                                         <?php
+                                              $sql = "SELECT * FROM agenda WHERE Cliente = '".$_SESSION["email"]."' AND Status_Agendamento =  'Confirmado'";
+                                                        $result = $con->query($sql);
+
+                                                        if ($result->num_rows > 0) {   
+                                                            while ($row = $result->fetch_assoc()) {
+                                                                $IdPrestador = $row["FK_ID_Prestador"];
+                                                                $data = $row["Data_de_Agendamento"];
+                                                                $IdAgendamento = $row["Id_Agendamento"];
+                                                                $sqlPrestador = "SELECT * FROM Prestador WHERE Id_prestador = '$IdPrestador'";
+                                                                $resultPrestador = $con->query($sqlPrestador);
+
+                                                                if ($resultPrestador->num_rows > 0) {
+                                                                    while ($rowPrestador = $resultPrestador->fetch_assoc()) { 
+                                                                        $nomePrestador = $rowPrestador["Nome"];
+                                                                        $telefone = $rowPrestador["Telefone"];
+                                                                        $emailPrestador = $rowPrestador["Email"];
+                                                                        $servico = $rowPrestador["Servico_Prestado"];
+                                                                        echo '<form method="post" action="../../confirmarAgendamento.php">';
+                                                                        echo '<div class="row">';
+                                                                        echo '<div class="col-md-3 ">';
+                                                                        echo '<span>Prestador: <a href="/Callit/screen/profile/perfilprestador.php?email=' . urlencode($emailPrestador) . '">' . $nomePrestador . '</a></span>';
+                                                                        echo '</div>';
+                                                                        echo '<div class="col-md-2 ">';
+                                                                        echo '<span>Serviço: '.$servico.'</span>';
+                                                                        echo '</div>';
+                                                                        echo '<div class="col-md-3 ">';
+                                                                        echo '<span>Contato: '.$telefone.'</span>';
+                                                                        echo '</div>';
+                                                                        echo '<div class="col-md-3 ">';
+                                                                        echo '<span>Dia: '.$data.'</span>';
+                                                                        echo '</div>';
+                                                                        echo '<div class="col-md-6 ">';
+                                                                        echo '</div>';
+                                                                        echo '</div>';
+                                                                      
+                                                                        echo '<br>';
+                                                                        echo '<ul class="nav nav-tabs" id="myTab" role="tablist">';
+                                                                        echo '<li class="nav-item">';
+                                                                        echo '</li>';
+                                                                        echo '</ul>';
+                                                                        echo '<br>';
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }else{
+                                                                echo '<p>Você não tem agendamentos confirmados!</p>';
+                                                               }}?>
                                     
                         </div>
                         

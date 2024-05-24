@@ -29,12 +29,13 @@ if (!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !e
     '" . $con->real_escape_string($senhaCripto) . "', '$telefoneUsuario','$imageDataEscaped')";
 
     if ($con->query($sql) === TRUE) {
-        $query = "SELECT Email FROM Usuario WHERE Email = '$emailUsuario'";
+        $query = "SELECT Email,Id_usuario FROM Usuario WHERE Email = '$emailUsuario'";
         $result = $con->query($query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $userId = $row["Email"];
             $_SESSION["email"] = $userId;
+            $_SESSION["id"] = $row["Id_usuario"];
             $_SESSION["PRESTADOR"] = false;
             $_SESSION["USUARIO"] = TRUE;
             header("Location: ../../main.php");
@@ -51,12 +52,13 @@ if (!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !e
     ,'$servico','" . $con->real_escape_string($senhaCripto) . "','$telefonePrestador','$imageDataEscaped')";
 
     if ($con->query($sql) === TRUE) {
-        $query = "SELECT Email FROM Prestador WHERE Email = '$emailPrestador'";
+        $query = "SELECT Email,Id_prestador FROM Prestador WHERE Email = '$emailPrestador'";
         $result = $con->query($query);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $userId = $row["Email"];
             $_SESSION["email"] = $userId;
+            $_SESSION["id"] = $row["Id_prestador"];
             $_SESSION["PRESTADOR"] = true;
             $_SESSION["USUARIO"] = false;
             header("Location: ../../main.php");

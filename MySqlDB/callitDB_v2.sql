@@ -34,7 +34,7 @@ CREATE TABLE Agenda (
     Dia_da_Semana VARCHAR(20), -- Segunda,Terça,...
     Data_de_Agendamento DATE, -- Data do agendamento
     Data_Inicio_Semana DATE,  -- Data do início da semana (Facilita agrupamento de agendamentos)
-    Disponibilidade BOOLEAN, -- Se o prestador está disponível no dia ou não
+    Status_Agendamento VARCHAR(20), -- Se o prestador está disponível no dia ou não
     Cliente VARCHAR(200), -- Nome do usuário que fez o agendamento
     FOREIGN KEY (FK_ID_Prestador) REFERENCES Prestador (Id_prestador),
     FOREIGN KEY (FK_ID_Servico) REFERENCES Servico (Id_servico)
@@ -42,7 +42,7 @@ CREATE TABLE Agenda (
 
 DELIMITER $$
 
-CREATE TRIGGER before_insert_agenda
+CREATE TRIGGER inserir_dia_semana
 BEFORE INSERT ON Agenda
 FOR EACH ROW
 BEGIN

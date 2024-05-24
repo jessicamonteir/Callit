@@ -149,7 +149,22 @@
                     ?>
                       <div class="file btn btn-lg btn-primary">
                           Mudar foto
-                          <input style="cursor: pointer;" type="file" name="imagem" placeholder="imagem"/>
+                          <input style="cursor: pointer;" type="file" id="inputfotocliente"name="imagem" placeholder="imagem" onchange="atualizarFoto()"/>
+                          <script>
+                          function atualizarFoto(){
+                            const fileInput = document.getElementById('inputfotocliente');
+                            const imgElement = document.getElementById('imgperfil');
+                            
+                            const file = fileInput.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function(e) {
+                                    imgElement.src = e.target.result;
+                                }
+                                reader.readAsDataURL(file);
+                            }
+                            }
+                    </script>
                       </div>
                   </div>
               </div>

@@ -15,6 +15,7 @@
                 echo "Usuário excluído com sucesso.";
                 $_SESSION["email"] = null;
                 $_SESSION["PRESTADOR"] = null;
+                $_SESSION["id"] = null;
                 session_destroy();
                 header("Location: /Callit/main.php");
             } else {
@@ -27,6 +28,7 @@
                         echo "Prestador excluído com sucesso.";
                         $_SESSION["email"] = null;
                         $_SESSION["PRESTADOR"] = null;
+                        $_SESSION["id"] = null;
                         session_destroy();
                         header("Location: /Callit/main.php");
                     } else {

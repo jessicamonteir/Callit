@@ -17,7 +17,7 @@ if (!empty($emailcliente)) {
 }
 
 if (!empty($emailcliente)) {
-    $sql = "INSERT INTO agenda(FK_ID_Prestador,Data_de_Agendamento,Cliente) VALUES ('$IdPrestador','$data','$emailcliente')";
+    $sql = "INSERT INTO agenda(FK_ID_Prestador,Data_de_Agendamento,Cliente,Status_Agendamento) VALUES ('$IdPrestador','$data','$emailcliente','Confirmar')";
     $result = $con->query($sql);
     header("Location: /Callit/screen/profile/perfilprestador.php?email=" . urlencode($emailprestador));
 }

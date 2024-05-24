@@ -91,6 +91,7 @@
 
     const regexPass = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
     const regexUsername = /^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/;
 
     function validationUsuario() {
@@ -144,6 +145,26 @@
     }
     return true;
     }
+    function validationLogin(){
+    const emailLogin = document.getElementById('logemail');
+    const passwordLogin = document.getElementById('logpass');
+        
+    const emailLoginValue = emailLogin.value;
+    const passwordLoginValue = passwordLogin.value;
+
+    let errorMessage = document.getElementById('showErrorMessageLogin');
+    if (!regexEmail.test(emailLoginValue) || !regexPass.test(passwordLoginValue)) {
+        errorMessage.style.display = "initial";
+        if (!regexEmail.test(emailLoginValue)){
+            errorMessage.textContent = "Email fora dos padrões";
+        }
+        if (!regexPass.test(passwordLoginValue)){
+            errorMessage.textContent = "Senha fora dos padrões";
+        }
+        return false;
+    }
+    return true;
+    }
 </script>
 
     <div class="section">
@@ -166,24 +187,23 @@
                                         <div class="section text-center">
                                             <h4 class="mb-4 pb-3">Entrar</h4>
 
-                                            <form id="loginForm" name="loginForm" action="loginToDB.php" method="post">
-                                                <div class="form-group">
+                                            <form id="loginForm" name="loginForm" action="loginToDB.php" onsubmit="return validationLogin();" method="post">
+                                                <div class="form-group" >
                                                     <input type="email" name="logemail" class="form-style"
                                                         placeholder="Seu email" id="logemail" autocomplete="off">
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="password" name="logpass" class="form-style"
-                                                        placeholder="Sua senha" id="logpass" autocomplete="off">
+                                                        placeholder="Sua senha" id="logpass" autocomplete="off"
+                                                        required 
+                                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}" 
+                                                        title="A senha deve conter pelo menos 8 caracteres, incluindo pelo menos um dígito, uma letra minúscula, uma letra maiúscula e um caractere especial."
+                                                        >
                                                     <i class="fa-solid fa-lock"></i>
                                                 </div>
                                                 <div>
-                                                    <?php
-                                                    if (isset($_SESSION['error_message'])){
-                                                    echo '<h6 style="margin-top:10px; color: white !important">' . $_SESSION['error_message'] . '</h6>';
-                                                    unset($_SESSION['error_message']);
-                                                    }
-                                                ?>
+                                                    
                                                 </div>
                                                 <button type="submit" class="btn mt-4" id="btnlogin">Enviar</button>
                                             </form>
@@ -221,19 +241,25 @@
                                                 <div class="form-group">
                                                     <input type="text" name="lognameUser" class="form-style"
                                                         placeholder="Nome completo" id="lognameUser"
-                                                        autocomplete="off">
+                                                        autocomplete="off"
+                                                        required 
+                                                        pattern="[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}"
+                                                        title="O nome deve ter pelo menos 4 letras e não ter números">
                                                     <i class="fa-solid fa-user"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="email" name="sigemailUser" class="form-style"
                                                         placeholder="Seu email" id="sigemailUser"
-                                                        autocomplete="off">
+                                                        autocomplete="off"
+                                                        required
+                                                        title="O email precisa ser no formato exemplo@exemplo.com">
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="text" name="sigtelUser" class="form-style"
                                                         placeholder="Seu telefone" id="sigtelUser"
                                                         autocomplete="off"
+                                                        required
                                                         pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
                                                         title="Número de telefone precisa ser no formato (99) 9999-9999"
                                                         >
@@ -263,12 +289,17 @@
                                                 <div class="form-group">
                                                     <input type="text" name="lognamePrestador" class="form-style"
                                                         placeholder="Nome completo" id="lognamePrestador"
+                                                        required
+                                                        pattern="[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}"
+                                                        title="O nome deve ter pelo menos 4 letras e não ter números"
                                                         autocomplete="off">
                                                     <i class="fa-solid fa-user"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="email" name="sigemailPrestador" class="form-style"
                                                         placeholder="Seu email" id="sigemailPrestador"
+                                                        required
+                                                        title="O email precisa ser no formato exemplo@exemplo.com"
                                                         autocomplete="off">
                                                     <i class="fa-solid fa-at"></i>
                                                 </div>
@@ -276,6 +307,7 @@
                                                     <input type="text" name="sigtelPrestador" class="form-style"
                                                         placeholder="Seu telefone" id="sigtelPrestador"
                                                         autocomplete="off"
+                                                        required
                                                         pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
                                                         title="Número de telefone precisa ser no formato (99) 9999-9999"
                                                         >
