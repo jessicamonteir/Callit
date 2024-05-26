@@ -130,7 +130,7 @@
           </button>
         </div>
       <form method="post" action="../../updateUserAccount.php" id="updateFormCliente" name="updateFormCliente" enctype="multipart/form-data" onsubmit="return validarSenhaAtual();">
-          <div class="row">
+          <div class="row" style="max-height:133px">
               <div class="col-md-4">
                   <div class="profile-img">
                     <?php
@@ -147,7 +147,7 @@
                           }
                       }
                     ?>
-                      <div class="file btn btn-lg btn-primary">
+                      <div class="file btn btn-primary">
                           Mudar foto
                           <input style="cursor: pointer;" type="file" id="inputfotocliente"name="imagem" placeholder="imagem" onchange="atualizarFoto()"/>
                           <script>
@@ -210,7 +210,7 @@
           <div class="row">
               <div class="col-md-4">
                   <div class="profile-work">
-                      <p>Contato</p>
+                      <p id="contato">Contato:</p>
                       <div class="row">
                           <?php
                           $email = $_SESSION["email"] ?? null;

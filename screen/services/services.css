@@ -116,7 +116,7 @@
 }
 
 body {
-    background-color: var(--jardim);
+    background-color: var(--main-color);
     font-family: var(--font-base);
 }
 

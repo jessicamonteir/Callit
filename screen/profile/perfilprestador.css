@@ -115,7 +115,8 @@ color: #75b5ff;
     border-radius: 0;
     font-size: 15px;
     background: #212529b8;
-}
+
+  }
 .profile-img .file input {
     position: absolute;
     opacity: 0;
@@ -379,13 +380,13 @@ footer{
     margin-bottom: 15px;
   }
   #contato{
-    margin-top: 20px;
+    margin-top: 40px;
   }
   .profile-tab p, label{
     margin-bottom: 15px;
   }
   #imgperfil{
-    height: 190px;
+    max-height: 170px;
     aspect-ratio: 16/9;
   }
   #imgperfilheaderprestador{
@@ -432,6 +433,54 @@ footer{
 {
   background: orangered;
 }
+.review-stars, .givereview-stars{
+  display:inline-block;
+  position:relative;
+  width: 90px;
+  height: 21px;
+  background: var(--stars);
+  --stars: url("http://www.harborsailboats.com/wp-content/uploads/2017/04/5a36f9d97d0d54f0a186b4d7fb742ad3_five-stars-salon-review-google-5-star-review-clipart_3000-700.png")
+      right/auto 100% no-repeat;
+  margin-left: 10px;
+}
+
+
+.review-stars:after {
+  content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--stars);
+    filter: grayscale(1);
+}
+.givereview-stars:after {
+  content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20%;
+    height: 100%;
+    background: var(--stars);
+    filter: grayscale(1);
+}
+
+span{
+  font-weight: 600;
+}
+.botaoavaliacao{
+  font-size: 14px;
+  max-width: 240px;
+  max-height: 80px;
+  margin-top: 10px;
+}
+.daravaliacao{
+  margin-top: 15px;
+}
+
 
 
 

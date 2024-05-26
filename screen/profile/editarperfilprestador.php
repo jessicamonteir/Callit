@@ -146,7 +146,7 @@
                       }
                   }
                 ?>
-                <div class="file btn btn-lg btn-primary">
+                <div class="file btn btn-primary">
                     Mudar foto
                     <input style="cursor: pointer;" type="file" id="inputfoto"name="imagem" placeholder="imagem" onchange="atualizarFoto()"/>
                     <script>
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 cabecalho">
             <div class="profile-head">
                 <?php
                 $email = $_SESSION["email"] ?? null;
@@ -181,15 +181,37 @@
                         $nome = $row["Nome"];
                         $tipo_servico = $row["Servico_Prestado"];
                         $avaliacao = $row["Avaliacao"];
+                        $avaliacaostar = (5-$avaliacao)*20;
 
+                        echo '<div class="row">';
                         echo '<h5>' . $nome . '</h5>';
+                        echo '</div>';
+                        echo '<div class="row">';
                         echo '<h6>' . $tipo_servico . '</h6>';
-                        echo '<p class="proile-rating">Avaliação : <span>' . $avaliacao . '/5</span></p>';
+                        echo '</div>';
+                        echo '<span>Avaliação:</span>';
+                        echo "<div class='review-stars' data-avaliacaostar='" . $avaliacaostar . "' id='avaliacao' title='" . $avaliacao . " estrelas'></div>";
                     } else {
                         echo "Usuário não encontrado.";
                     }
                 }
                 ?>
+                <script>
+                  document.addEventListener('DOMContentLoaded', (event) => {
+                                const reviewStars = document.getElementById('avaliacao');
+                                const givereviewStars = document.getElementById('avaliacao2');
+                                if (reviewStars) {
+                                    const avaliacaostar = reviewStars.getAttribute('data-avaliacaostar')
+                                    const style = document.createElement('style');
+                                    style.innerHTML = `
+                                        .review-stars:after {
+                                            width: ${avaliacaostar}%;
+                                        }
+                                    `;
+                                    document.head.appendChild(style);
+                                    }
+                  });
+                </script>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
@@ -209,10 +231,20 @@
             </script>
         </div>
     </div>
-    <div class="row">
+    <div class="row" id="linha">
+        <?php
+        if ($email==$_SESSION["email"]){
+        ?>
+        <script>
+        const row = document.getElementById("linha")
+        row.style.marginTop="10px"
+        </script>
+          <?php
+        }
+    ?>
         <div class="col-md-4">
             <div class="profile-work">
-                <p>Contato</p>
+                <p style="margin-top: 30px">Contato:</p>
                 <div class="row">
                     <?php
                     $email = $_SESSION["email"] ?? null;

@@ -108,7 +108,7 @@
       </nav>
       <div class="container emp-profile">
         <form method="post">
-            <div class="row">
+            <div class="row" style="max-height:133px">
                 <div class="col-md-4">
                     <div class="profile-img">
                       <?php
@@ -172,7 +172,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p id="contato">Contato</p>
+                        <p id="contato">Contato:</p>
                         <div class="row">
                         <?php
                           if (!empty($email)) {
@@ -208,7 +208,8 @@
                                   echo "<label>Nome</label>";
                                   echo "</div>";
                                   echo "<div class='col-md-6'>";
-                                  echo '<p style="margin-left:-11px">'. $nome .'</p>';
+                                  echo '<p>'. $nome .'</p>';
+                                  echo "</div>";
                                   echo "</div>";
                               }
                           }
@@ -289,7 +290,7 @@
                                                                 echo '<p>Você não tem agendamentos confirmados!</p>';
                                                                }}?>
                                     
-                        </div>
+                                  </div>
                         
                                 </div>
                             </div>

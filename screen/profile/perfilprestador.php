@@ -137,8 +137,9 @@
                     ?>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 cabecalho">
                     <div class="profile-head">
+                    
                               <?php
                                 if (!empty($email)) {
                                     $sql = "SELECT * FROM Prestador WHERE email = '$email'";
@@ -149,20 +150,133 @@
                                         $nome = $row["Nome"];
                                         $tipo_servico = $row["Servico_Prestado"];
                                         $avaliacao = $row["Avaliacao"];
+                                        $avaliacaostar = (5-$avaliacao)*20;
 
-                                        echo "<h5>" . $nome . "<h5>";
-                                        echo "<h6>" . $tipo_servico . "<h6>";
-                                        echo "<p class='proile-rating'>Avaliação : <span>" . $avaliacao . "</span></p>";
+                                        echo '<div class="row">';
+                                        echo "<h5>" . $nome . "</h5>";
+                                        echo '</div>';
+                                        echo '<div class="row">';
+                                        echo "<h6>" . $tipo_servico . "</h6>";
+                                        echo '</div>';
+                                        echo '<span>Avaliação:</span>';
+                                        echo "<div class='review-stars' data-avaliacaostar='" . $avaliacaostar . "' id='avaliacao' title='" . $avaliacao . " estrelas'></div>";
+                                        if ($email != $_SESSION["email"]){
+                                        echo '<br>';
+                                        echo '<span id="escolhasua" class="daravaliacao" style="display:none">Escolha sua avaliação:</span>';
+                                        echo '<button type="button" id="botaoavaliar" class="profile-edit-btn botaoavaliacao" onclick="avaliar()">Clique aqui para dar sua avaliação</button>';
+                                        echo "<div class='givereview-stars' class='daravaliacao' style='display:none' data-daravaliacaostar='" . $avaliacaostar . "'id='avaliacao2' title='" . $avaliacao . " estrelas'></div>";
+                                        echo '<br>';
+                                        echo "<span id='avaliartemporeal' style='display:none'>Passe o mouse por cima das estrelas para avaliar e clique na sua escolha</span>";
+                                        
+                                        echo '<input type="hidden" id="emailp" value="'.$email.'"> ';
+                                        }
+                      
                                     }
                                   }
                                 ?>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                               
+
+
+                                
+                           
+
+                    
+                                <script>
+                                function avaliar(){
+                                const givereviewStars = document.getElementById('avaliacao2');
+                                const avaliacao = document.getElementById('avaliartemporeal');
+                                const botao = document.getElementById('botaoavaliar');
+                                const escolhasua = document.getElementById('escolhasua');
+                                givereviewStars.style.display="inline-block";
+                                avaliacao.style.display="inherit";
+                                escolhasua.style.display="inline-block";
+                                botao.style.display="none";
+                                console.log("a")
+                                }
+                            
+
+                                
+                                document.addEventListener('DOMContentLoaded', (event) => {
+                                const reviewStars = document.getElementById('avaliacao');
+                                const givereviewStars = document.getElementById('avaliacao2');
+                                if (reviewStars) {
+                                    const avaliacaostar = reviewStars.getAttribute('data-avaliacaostar')
+                                    const style = document.createElement('style');
+                                    style.innerHTML = `
+                                        .review-stars:after {
+                                            width: ${avaliacaostar}%;
+                                        }
+                                    `;
+                                    document.head.appendChild(style);
+                                }
+                                if (givereviewStars){
+                                  givereviewStars.addEventListener('mousemove', function(e) {
+                                    const rect = givereviewStars.getBoundingClientRect();
+                                    const mouseX = e.clientX - rect.left;
+                                    console.log(mouseX);
+                                    const widthPercentage = (100-(mouseX / rect.width) * 100)-0.9;
+                                    const givestyle = document.createElement('style');
+                                    givestyle.innerHTML = `
+                                        .givereview-stars:after {
+                                            width: ${widthPercentage}%;
+                                        }
+                                    `;
+                                    document.head.appendChild(givestyle);
+                                    const givereviewStars3 = document.getElementById('avaliacao2');
+                                    givereviewStars3.setAttribute('title',Number((5-(widthPercentage/20)).toFixed(1)))
+                                    const texto =document.getElementById("avaliartemporeal")
+                                    texto.innerHTML=Number((5-(widthPercentage/20)).toFixed(1))
+                                    });
+                                    givereviewStars.addEventListener('mouseleave', function(e) {
+                                      const texto =document.getElementById("avaliartemporeal")
+                                     
+                                    texto.innerHTML="Passe o mouse por cima das estrelas para avaliar e clique na sua escolha"
+                                    });
+                                  givereviewStars.addEventListener('click', function(e) {
+                                    
+                                    const rect = givereviewStars.getBoundingClientRect();
+                                    const mouseX = e.clientX - rect.left;
+                                    const widthPercentage =(mouseX / rect.width) * 100;
+                                    var avaliacao = widthPercentage/20
+                                    var avaliacaoround  = Number((avaliacao).toFixed(1))
+                                    var email = document.getElementById('emailp').value;
+                                    console.log(email);
+                                    var conexao = new XMLHttpRequest();
+                                    conexao.open("POST", "/Callit/avaliar.php", true);
+                                    conexao.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    conexao.send(`Avaliacao=${avaliacaoround}&email=${email}`);
+                                    
+                                      if (conexao.status === 200) {
+                                          console.log('Avaliação enviada com sucesso');
+                                      } else {
+                                          console.error('Erro ao enviar avaliação');
+                                      }
+                                      const givereviewStars2 = document.getElementById('avaliacao2');
+                                      const avaliacao2 = document.getElementById('avaliartemporeal');
+                                      const escolhasua2 = document.getElementById('escolhasua');
+                                      givereviewStars2.style.display="none";
+                                      avaliacao2.style.display="none";
+                                      escolhasua2.innerHTML="Obrigado por avaliar!";
+                                      
+
+                                    
+                                });
+                                  }
+                                  
+                                  
+    
+                              });
+                                </script>
+                      
+                              <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sobre</a>
                             </li>
-                        </ul>
+                      </ul>  
+                        
                     </div>
                 </div>
+                
                 <?php
                   if ($email == $_SESSION["email"])
                   {
@@ -182,10 +296,22 @@
                   }
                 ?>
             </div>
-            <div class="row">
+            <div class="row" id="linha">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p id="contato">Contato</p>
+                        <p id="cont" style="margin-top:-40px">Contato:</p>
+                        <?php
+                        if ($email==$_SESSION["email"]){
+                        ?>
+                        <script>
+                        
+                        const cont = document.getElementById("cont")
+                        cont.style.marginTop="20px"
+                      
+                        </script>
+                          <?php
+                        }
+                    ?>
                         <div class="row">
                         <?php
                           if (!empty($email)) {
@@ -261,7 +387,7 @@
                                 
                                             echo '<div class="row">';
                                             echo '<div class="col-md-6">';
-                                            echo '<label>Nome</label>';
+                                            echo '<span>Nome</span>';
                                             echo '</div>';
                                             echo '<div class="col-md-6">';
                                             echo '<p>' . $nome . '</p>';
@@ -316,7 +442,9 @@
                                                                     console.log(datasBloqueadas)
                                                                     $('#datepicker').datepicker({
                                                                       format: "yyyy-mm-dd",
-                                                                      datesDisabled: datasBloqueadas
+                                                                      datesDisabled: datasBloqueadas,
+                                                                      startDate:"0",
+                                                                      multidate:true,
                                                                     });
                                                                   }
                                                                 });
@@ -462,6 +590,7 @@
                                                                 $resultClientePrest = $con->query($sqlClientePrest);
 
                                                                 if ($resultCliente->num_rows > 0) {
+                                                                  
                                                                     while ($rowCliente = $resultCliente->fetch_assoc()) { 
                                                                         $nomeCliente = $rowCliente["Nome"];
                                                                         $telefone = $rowCliente["Telefone"];
@@ -515,7 +644,9 @@
                                                                 }
                                                               }else{
                                                                 echo '<p>Você não tem agendamentos confirmados!</p>';
-                                                               }}}} ?>
+                                                               }}}else{
+                                                                echo '<span>Você não tem agendamentos confirmados!</span>';
+                                                               }} ?>
                                         </div>
                                     </div>
 
@@ -536,7 +667,7 @@
               <div class="container">
                 <div class="row gy-5">
                   <div class="col-lg-3 col-sm-6">
-                    <a href="../../main.php"> <img class="logoFotter" src="/Images/Logo/logopng1.png" alt=""></a>
+                    <a href="../../main.php"> <img class="logoFotter" src="/Callit/Images/Logo/logopng1.png" alt=""></a>
                     <div class="line"></div>
                     <p>Nosso trabalho é fazer o melhor caminho entre você e o prestador de serviços ideal.</p>
                     <div class="social-icons">

@@ -16,10 +16,9 @@
 </head>
 <body>
 <?php 
-  if (isset($_SESSION['USUARIO'])){
-
+  if (($_SESSION['USUARIO'] == TRUE)){
   }
-  elseif (isset($_SESSION['PRESTADOR'])){
+  elseif (($_SESSION['PRESTADOR'] == TRUE)){
     echo '<script type="text/javascript">',
     'document.addEventListener("DOMContentLoaded", function() {',
     'prestadorScreen();',
@@ -66,7 +65,7 @@
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="#services">Catálogos</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php#services">Catálogos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/screen/services/services.php">Serviços</a>

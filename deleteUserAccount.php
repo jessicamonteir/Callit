@@ -4,6 +4,7 @@
     include('conn.php');
 
     $email = $_SESSION["email"] ?? null;
+    $id = $_SESSION["id"] ?? null;
 
     if (!empty($email)) {
         $sqlUsuario = "DELETE FROM Usuario WHERE email = '$email'";
@@ -11,6 +12,11 @@
         if ($resultUsuario === FALSE) {
             echo "Error: " . $sqlUsuario . "<br>" . $con->error;
         } else {
+            $sqlAgenda = "DELETE FROM agenda WHERE cliente = '$email'";
+            $resultAgenda = $con->query($sqlAgenda);
+            if ($resultAgenda === FALSE) {
+                echo "Error: " . $sqlAgenda . "<br>" . $con->error;
+            }
             if ($con->affected_rows > 0) {
                 echo "Usuário excluído com sucesso.";
                 $_SESSION["email"] = null;
@@ -24,6 +30,11 @@
                 if ($resultPrestador === FALSE) {
                     echo "Error: " . $sqlPrestador . "<br>" . $con->error;
                 } else {
+                    $sqlAgenda = "DELETE FROM agenda WHERE FK_ID_Prestador = '$id'";
+                    $resultAgenda = $con->query($sqlAgenda);
+                    if ($resultAgenda === FALSE) {
+                        echo "Error: " . $sqlAgenda . "<br>" . $con->error;
+                    }
                     if ($con->affected_rows > 0) {
                         echo "Prestador excluído com sucesso.";
                         $_SESSION["email"] = null;

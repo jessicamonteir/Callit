@@ -15,7 +15,8 @@ CREATE TABLE Prestador (
     Nome VARCHAR(200) NOT NULL,
     Email VARCHAR(100) NOT NULL,
     Servico_Prestado VARCHAR(25) NOT NULL,
-    Avaliacao INT, /* Média de avaliação do prestador */
+    Avaliacao DECIMAL(3,2), 
+    Avaliacoes TEXT, 
     Senha VARCHAR(200) NOT NULL,
     Telefone VARCHAR(20) NOT NULL,
     Foto_Perfil LONGBLOB
@@ -55,6 +56,54 @@ BEGIN
         WHEN 6 THEN 'Sexta'
         WHEN 7 THEN 'Sábado'
     END;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE AddAvaliacao (
+    IN prestadoremail VARCHAR(100),
+    IN nota DECIMAL(3,1)
+)
+BEGIN
+    DECLARE novas_avaliacoes TEXT;
+    DECLARE soma DECIMAL(10,1) DEFAULT 0;
+    DECLARE contador INT DEFAULT 0;
+    DECLARE nova_media DECIMAL(3,2);
+    DECLARE avaliacao_atual TEXT;
+    DECLARE temp_val TEXT;
+
+    -- Obtém a lista atual de avaliações
+    SELECT Avaliacoes INTO avaliacao_atual FROM Prestador WHERE Email = prestadoremail;
+
+    -- Concatenar a nova nota à lista de avaliações
+    IF avaliacao_atual IS NULL OR avaliacao_atual = '' THEN
+        SET novas_avaliacoes = CAST(nota AS CHAR);
+    ELSE
+        SET novas_avaliacoes = CONCAT(avaliacao_atual, ',', CAST(nota AS CHAR));
+    END IF;
+
+    -- Atualizar a coluna Avaliacoes
+    UPDATE Prestador SET Avaliacoes = novas_avaliacoes WHERE Email = prestadoremail;
+
+    -- Calcular a nova média
+    SET temp_val = TRIM(BOTH ',' FROM novas_avaliacoes);
+    WHILE LOCATE(',', temp_val) > 0 DO
+        SET soma = soma + CAST(SUBSTRING_INDEX(temp_val, ',', 1) AS DECIMAL(3,1));
+        SET temp_val = SUBSTRING(temp_val FROM LOCATE(',', temp_val) + 1);
+        SET contador = contador + 1;
+    END WHILE;
+
+    -- Adicionar a última avaliação
+    SET soma = soma + CAST(temp_val AS DECIMAL(3,1));
+    SET contador = contador + 1;
+
+    -- Calcular a média
+    SET nova_media = IFNULL(soma / contador, 0);
+
+    -- Atualizar a média na tabela Prestador
+    UPDATE Prestador SET Avaliacao = nova_media WHERE Email = prestadoremail;
 END$$
 
 DELIMITER ;
