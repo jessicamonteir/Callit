@@ -258,25 +258,48 @@
                                       </div>
                                   </div>
                                   <?php
+                                  echo '<div class="row">';
+                                  echo '<div class="col-md-6">';
+                                  echo '<label>Serviços já contratados</label>';
+                                  echo '</div>';
+                                  
+                                  $sql = "SELECT * FROM agenda WHERE cliente = '$email' AND Status_Agendamento='Confirmado'";
+                                  $result = $con->query($sql);
+                                  
+                                  echo '<div class="col-md-6">';
+                                  echo '<p>'.$result->num_rows.'</p>';
+                                  echo '</div>';
+                                  echo '</div>';
+                                  
+                                  // Retrieve the most utilized service by the provider
+                                  $sql_preferencia = "
+                                      SELECT s.Nome_servico, COUNT(a.FK_ID_Servico) AS quantidade
+                                      FROM Agenda a
+                                      JOIN Servico s ON a.FK_ID_Servico = s.Id_servico
+                                      WHERE a.Cliente = '$email' AND a.Status_Agendamento='Confirmado'
+                                      GROUP BY s.Nome_servico
+                                      ORDER BY quantidade DESC
+                                      LIMIT 1
+                                  ";
+                                  $result_preferencia = $con->query($sql_preferencia);
+                                  $preferencia = $result_preferencia->fetch_assoc();
+                                  
+                                  echo '<div class="row">';
+                                  echo '<div class="col-md-6">';
+                                  echo '<label>Preferência de serviço</label>';
+                                  echo '</div>';
+                                  echo '<div class="col-md-6">';
+                                  if ($preferencia) {
+                                      echo '<p>' . $preferencia['Nome_servico'] . '</p>';
+                                  } else {
+                                      echo '<p>N/A</p>';
+                                  }
+                                  echo '</div>';
+                                  echo '</div>';
                               }
                           }
                           ?> 
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <label>Serviços já contratados</label>
-                              </div>
-                              <div class="col-md-6">
-                                  <p>6</p>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <label>Preferência de serviço</label>
-                              </div>
-                              <div class="col-md-6">
-                                  <p>Jardineiro</p>
-                              </div>
-                          </div>
+                          
                           <div class="profile-head">
                           <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">

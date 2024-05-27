@@ -124,13 +124,14 @@
     <nav class="navbarsrv navbar-expand-md navbar-light">
         <div class="container-fluid p-0"> <a class="navbar-brand text-uppercase fw-800" href="#"><span class="border-red pe-2">Callit</span></a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNav" aria-controls="myNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
             <div class="collapse navbar-collapse" id="myNav">
-                <div class="navbar-navsrv ms-auto"> <a class="nav-linksrv active" aria-current="page" href="#" data-service="Em Alta">Em Alta</a> <a class="nav-linksrv" href="#" data-service="Pedreiro">Pedreiro</a> <a class="nav-linksrv" href="#" data-service="Eletricista">Eletricista</a> <a class="nav-linksrv" href="#" data-service="Pintor">Pintor</a> <a class="nav-linksrv" href="#" data-service="Jardinagem">Jardinagem</a> <a class="nav-linksrv" href="#" data-service="Encanador">Encanador</a> </div>
+                <div class="navbar-navsrv ms-auto"> <select  id="opcao" class="nav-linksrv selectfiltro" onchange="mudaropcao()"><option  value="Avaliacao">Mais bem avaliados</option><option value="Nome">Ordem alfabética</option><option value="Id_Prestador">Cadastros mais recentes</option></select><a class="nav-linksrv filtros active" aria-current="page" href="#" data-service="Em Alta">Em Alta</a> <a class="nav-linksrv filtros" href="#" data-service="Pedreiro">Pedreiro</a> <a class="nav-linksrv filtros" href="#" data-service="Eletricista">Eletricista</a> <a class="nav-linksrv filtros" href="#" data-service="Pintor">Pintor</a> <a class="nav-linksrv filtros" href="#" data-service="Jardinagem">Jardinagem</a> <a class="nav-linksrv filtros" href="#" data-service="Encanador">Encanador</a> </div>
                 <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                    document.querySelectorAll('.nav-linksrv').forEach(function(link) {
+                    document.querySelectorAll('.filtros').forEach(function(link) {
                         link.addEventListener('click', function(event) {
                             var service = this.getAttribute('data-service');
-                            document.querySelectorAll('.nav-linksrv').forEach(function(link) {
+                            var opcao =document.getElementById('opcao').value
+                            document.querySelectorAll('.filtros').forEach(function(link) {
                               link.classList.remove('active');
                             });
                             this.classList.add("active");
@@ -143,10 +144,31 @@
                                     document.querySelector('.row').innerHTML = xhr.responseText;
                                 }
                             };
-                            xhr.send("service=" + encodeURIComponent(service));
+                            xhr.send(`service=${service}&filtro=${opcao}`);
                         });
                     });
+                    
+
                 });
+                function mudaropcao(){
+                
+                     
+                      var activeLink = document.querySelector('.filtros.active');
+                      var opcao =document.getElementById('opcao').value
+                      var service = activeLink.getAttribute('data-service');
+                      var xhr = new XMLHttpRequest();
+                      xhr.open("POST", "/Callit/mudarFiltro.php", true);
+                      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                      xhr.onload = function () {
+                        console.log(opcao)
+                          if (xhr.status === 200) {
+                              document.querySelector('.row').innerHTML = xhr.responseText;
+                          }
+                      };
+                      xhr.send(`service=${service}&filtro=${opcao}`);
+                };
+                    
+                  
                 </script>
             </div>
         </div>

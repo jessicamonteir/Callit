@@ -128,7 +128,7 @@ body {
 .navbar-navsrv .nav-linksrv {
     color: #000 !important;
     padding: 0.5rem 0rem !important;
-    border-color: transparent;
+
     margin-left: 1.5rem;
     transition: none
 }
@@ -145,6 +145,11 @@ body {
 .navbar-navsrv .nav-linksrv:hover {
     border-bottom: 3px solid var(--main-color);
 }
+.selectfiltro{
+  border-bottom: transparent;
+  border: #000 solid 1px;
+}
+
 
 .container .product-item {
     min-height: 450px;

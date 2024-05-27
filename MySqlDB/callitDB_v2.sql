@@ -34,7 +34,6 @@ CREATE TABLE Agenda (
     FK_ID_Servico INT,
     Dia_da_Semana VARCHAR(20), -- Segunda,Terça,...
     Data_de_Agendamento DATE, -- Data do agendamento
-    Data_Inicio_Semana DATE,  -- Data do início da semana (Facilita agrupamento de agendamentos)
     Status_Agendamento VARCHAR(20), -- Se o prestador está disponível no dia ou não
     Cliente VARCHAR(200), -- Nome do usuário que fez o agendamento
     FOREIGN KEY (FK_ID_Prestador) REFERENCES Prestador (Id_prestador),

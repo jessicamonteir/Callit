@@ -3,11 +3,21 @@ session_start();
 include('conn.php');
 
 $service = $_POST['service'];
+$opcao = $_POST["filtro"];
 
 if ($service == "Em Alta") {
-    $sql = "SELECT * FROM Prestador"; 
+    if ($opcao == "Nome"){
+        $sql = "SELECT * FROM Prestador ORDER BY $opcao ";
+    }else{
+        $sql = "SELECT * FROM Prestador ORDER BY $opcao DESC";
+    }
+    
 } else {
-    $sql = "SELECT * FROM Prestador WHERE Servico_Prestado = '" . $con->real_escape_string($service) . "'";
+    if ($opcao == "Nome"){
+        $sql = "SELECT * FROM Prestador WHERE Servico_Prestado = '" . $con->real_escape_string($service) . "' ORDER BY $opcao";
+    }else{
+        $sql = "SELECT * FROM Prestador WHERE Servico_Prestado = '" . $con->real_escape_string($service) . "' ORDER BY $opcao DESC";
+    }
 }
 
 $result = $con->query($sql);
