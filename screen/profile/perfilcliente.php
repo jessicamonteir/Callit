@@ -26,27 +26,61 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png"></strong></a>
-          <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-            <div class="input-group">
-              <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-              <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-              <button class="btn corSearch text-white linkskheader">Pesquisar</button>
-            </div>
-          </div>
-          <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <div class="ms-auto d-none d-lg-block">
-              <div class="input-group">
-                <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" class="form-control border-warningg " style="color:#7a7a7a">
-                <button class="btn corSearch text-white linkskheader btnheader">Pesquisar</button>
+<?php 
+  if (($_SESSION['USUARIO'] == TRUE)){
+  }
+  elseif (($_SESSION['PRESTADOR'] == TRUE)){
+  }
+  else{
+    header('Location: /Callit/screen/login/login.php');
+    exit;}
+?>
+  <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt="Callit Logo"></strong></a>
+      <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+        <div class="input-group">
+          <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="pesquisa-mobile" placeholder="Pesquise por um prestador" class="form-control border-warningg" style="color:#7a7a7a">
+          <button type="button" class="btn corSearch text-white" onclick="pesquisar('pesquisa-mobile')">Pesquisar</button>
+        </div>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="ms-auto d-none d-lg-block">
+          <div class="input-group">
+            <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" id="pesquisa-desktop" placeholder="Pesquise por um prestador" class="form-control border-warningg" style="color:#7a7a7a">
+            <button type="button" class="btn corSearch text-white linkskheader btnheader" onclick="pesquisar('pesquisa-desktop')">Pesquisar</button>
               </div>
             </div>
+            <script>
+    function pesquisar(inputId) {
+      var nome = document.getElementById(inputId).value;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "../../pesquisar.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              window.location.href = "/Callit/screen/profile/perfilprestador.php?email=" + encodeURIComponent(response.email);
+            } else {
+              alert(response.message || "Nenhum resultado encontrado");
+            }
+          } catch (e) {
+            console.error("Erro ao analisar JSON: ", e);
+            console.error("Resposta do servidor: ", xhr.responseText);
+          }
+        }
+      };
+      xhr.send("nome=" + encodeURIComponent(nome));
+    }
+  </script>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
@@ -169,7 +203,7 @@
                   }
                 ?>
             </div>
-            <div class="row">
+            <div class="row" id="linha">
                 <div class="col-md-4">
                     <div class="profile-work">
                         <p id="contato">Contato:</p>

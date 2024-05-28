@@ -17,6 +17,5 @@ if ($result->num_rows > 0) {
 
 $con->close();
 
-// Return the blocked dates as a JSON array
 echo json_encode($blockedDates);
 ?>

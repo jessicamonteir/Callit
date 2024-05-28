@@ -38,27 +38,61 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png"></strong></a>
-          <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
-            <div class="input-group">
-              <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-              <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-              <button class="btn corSearch text-white linkskheader">Pesquisar</button>
-            </div>
-          </div>
-          <div class=" collapse navbar-collapse" id="navbarNavDropdown">
-            <div class="ms-auto d-none d-lg-block">
-              <div class="input-group">
-                <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
-                <input type="text" class="form-control border-warningg" style="color:#7a7a7a">
-                <button class="btn corSearch text-white linkskheader btnheader">Pesquisar</button>
+<?php 
+  if (($_SESSION['USUARIO'] == TRUE)){
+  }
+  elseif (($_SESSION['PRESTADOR'] == TRUE)){
+  }
+  else{
+    header('Location: /Callit/screen/login/login.php');
+    exit;}
+?>
+  <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 shadow-sm">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand navegacao" href="/Callit/main.php"><strong><img src="/Callit/Images/Logo/caliit.png" alt="Callit Logo"></strong></a>
+      <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+        <div class="input-group">
+          <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="pesquisa-mobile" placeholder="Pesquise por um prestador" class="form-control border-warningg" style="color:#7a7a7a">
+          <button type="button" class="btn corSearch text-white" onclick="pesquisar('pesquisa-mobile')">Pesquisar</button>
+        </div>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="ms-auto d-none d-lg-block">
+          <div class="input-group">
+            <span class="border-warningg input-group-text centroSearch text-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" id="pesquisa-desktop" placeholder="Pesquise por um prestador" class="form-control border-warningg" style="color:#7a7a7a">
+            <button type="button" class="btn corSearch text-white linkskheader btnheader" onclick="pesquisar('pesquisa-desktop')">Pesquisar</button>
               </div>
             </div>
+            <script>
+    function pesquisar(inputId) {
+      var nome = document.getElementById(inputId).value;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "../../pesquisar.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          try {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+              window.location.href = "/Callit/screen/profile/perfilprestador.php?email=" + encodeURIComponent(response.email);
+            } else {
+              alert(response.message || "Nenhum resultado encontrado");
+            }
+          } catch (e) {
+            console.error("Erro ao analisar JSON: ", e);
+            console.error("Resposta do servidor: ", xhr.responseText);
+          }
+        }
+      };
+      xhr.send("nome=" + encodeURIComponent(nome));
+    }
+  </script>
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
@@ -401,6 +435,35 @@
                                             echo '<p>' . $tipo_servico . '</p>';
                                             echo '</div>';
                                             echo '</div>';
+                                            echo '<div class="row">';
+                                            echo '<div class="col-md-6">';
+                                            echo '<label>Serviços já contratados</label>';
+                                            echo '</div>';
+                                            
+                                            $sql = "SELECT * FROM agenda WHERE Cliente = '$email' AND Status_Agendamento='Confirmado'";
+                                            $result = $con->query($sql);
+                                            
+                                            echo '<div class="col-md-6">';
+                                            echo '<p>'.$result->num_rows.'</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            echo '<div class="row">';
+                                            echo '<div class="col-md-6">';
+                                            echo '<label>Serviços já prestados</label>';
+                                            echo '</div>';
+                                          
+                                            $sql = "
+                                            SELECT a.FK_ID_Prestador,  p.email AS email
+                                            FROM Agenda a
+                                            JOIN Prestador p ON a.FK_ID_prestador = p.Id_prestador
+                                            WHERE p.email = '$email' AND a.Status_Agendamento='Confirmado'";
+                                            $result = $con->query($sql);
+                                        
+                                            echo '<div class="col-md-6">';
+                                            echo '<p>'.$result->num_rows.'</p>';
+                                            echo '</div>';
+                                            echo '</div>';
+                                            
                                         } else {
                                             echo "Usuário não encontrado.";
                                         }
@@ -560,7 +623,7 @@
                                          ?>
                                          <script>
                                           function confirmarAgendamento(){
-                                            var xhr = new XMLHttpRequest();
+                                            var  = new XMLHttpRequest();
                                             xhr.open("POST", "/Callit/confirmarAgendamento.php", true);
                                             xhr.preventDefault()
                                             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -574,7 +637,54 @@
                                             xhr.send("Status=Negado");
                                          }
                                          </script>
-                                         <h4>Seus agendamentos confirmados:</h4>
+                                         
+                                         <?php
+                                              $sql = "SELECT * FROM agenda WHERE Cliente = '".$_SESSION["email"]."' AND Status_Agendamento =  'Confirmado'";
+                                              $result = $con->query($sql);
+
+                                              if ($result->num_rows > 0) {   
+                                                echo '<h4>Seus agendamentos confirmados como cliente:</h4>';
+                                                  while ($row = $result->fetch_assoc()) {
+                                                      $IdPrestador = $row["FK_ID_Prestador"];
+                                                      $data = $row["Data_de_Agendamento"];
+                                                      $IdAgendamento = $row["Id_Agendamento"];
+                                                      $sqlPrestador = "SELECT * FROM Prestador WHERE Id_prestador = '$IdPrestador'";
+                                                      $resultPrestador = $con->query($sqlPrestador);
+
+                                                      if ($resultPrestador->num_rows > 0) {
+                                                          while ($rowPrestador = $resultPrestador->fetch_assoc()) { 
+                                                              $nomePrestador = $rowPrestador["Nome"];
+                                                              $telefone = $rowPrestador["Telefone"];
+                                                              $emailPrestador = $rowPrestador["Email"];
+                                                              $servico = $rowPrestador["Servico_Prestado"];
+                                                              echo '<form method="post" action="../../confirmarAgendamento.php">';
+                                                              echo '<div class="row">';
+                                                              echo '<div class="col-md-3 ">';
+                                                              echo '<span>Prestador: <a href="/Callit/screen/profile/perfilprestador.php?email=' . urlencode($emailPrestador) . '">' . $nomePrestador . '</a></span>';
+                                                              echo '</div>';
+                                                              echo '<div class="col-md-2 ">';
+                                                              echo '<span>Serviço: '.$servico.'</span>';
+                                                              echo '</div>';
+                                                              echo '<div class="col-md-3 ">';
+                                                              echo '<span>Contato: '.$telefone.'</span>';
+                                                              echo '</div>';
+                                                              echo '<div class="col-md-3 ">';
+                                                              echo '<span>Dia: '.$data.'</span>';
+                                                              echo '</div>';
+                                                              echo '<div class="col-md-6 ">';
+                                                              echo '</div>';
+                                                              echo '</div>';
+                                                            
+                                                              echo '<br>';
+                                                              echo '<ul class="nav nav-tabs" id="myTab" role="tablist">';
+                                                              echo '<li class="nav-item">';
+                                                              echo '</li>';
+                                                              echo '</ul>';
+                                                              echo '<br>';
+                                                                    }
+                                                                  }}}
+                                                                  ?>
+                                        <h4>Seus agendamentos confirmados como prestador:</h4>
                                          <?php
                                               $sql = "SELECT * FROM agenda WHERE FK_ID_prestador = '".$_SESSION["id"]."' AND Status_Agendamento =  'Confirmado' ORDER BY Data_de_Agendamento";
                                                         $result = $con->query($sql);
