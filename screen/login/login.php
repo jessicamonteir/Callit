@@ -21,6 +21,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../login/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 </head>
 
 <body>
@@ -164,7 +166,10 @@
         return false;
     }
     return true;
-    }
+    };
+
+    ${'#sigtelUser'}.inputmask("(99)99999-9999");
+    ${'sigtelPrestador'}.inputmask("(99)99999-9999");
 </script>
 
     <div class="section">
