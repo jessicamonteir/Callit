@@ -21,6 +21,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../login/login.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 </head>
 
 <body>
@@ -164,9 +166,15 @@
         return false;
     }
     return true;
-    }
+    };
 </script>
+<script>
+    $(document).ready(function(){
+        $('#sigtelUser').mask("(00) 00000-0000");
+    $('#sigtelPrestador').mask("(00) 00000-0000");
+    });
 
+</script>
     <div class="section">
         <div class="container">
             <div class="row full-height justify-content-center">
