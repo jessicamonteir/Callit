@@ -31,6 +31,8 @@
   }
   elseif (($_SESSION['PRESTADOR'] == TRUE)){
   }
+  elseif(($_SESSION['ADMIN'] == TRUE)){
+  }
   else{
     header('Location: /Callit/screen/login/login.php');
     exit;}

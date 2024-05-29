@@ -78,7 +78,7 @@
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
               <?php 
-                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
+                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["USUARIO"]) {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                 <?php
@@ -108,7 +108,13 @@
                     ?> 
                 </a>
                 <?php
-                } else {
+                } elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["ADMIN"]){
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/admin.php">
+                  Gerenciar Perfis
+                </a>
+                <?php
+                }else{
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
                   Entrar

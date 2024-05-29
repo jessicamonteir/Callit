@@ -38,6 +38,7 @@ if (!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !e
             $_SESSION["id"] = $row["Id_usuario"];
             $_SESSION["PRESTADOR"] = false;
             $_SESSION["USUARIO"] = TRUE;
+            $_SESSION["ADMIN"] = false;
             header("Location: ../../main.php");
             exit();
         } else {
@@ -61,6 +62,7 @@ if (!empty($nomeUsuario) && !empty($emailUsuario) && !empty($senhaUsuario) && !e
             $_SESSION["id"] = $row["Id_prestador"];
             $_SESSION["PRESTADOR"] = true;
             $_SESSION["USUARIO"] = false;
+            $_SESSION["ADMIN"] = false;
             header("Location: ../../main.php");
             exit();
         } else {
