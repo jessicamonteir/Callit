@@ -10,7 +10,36 @@
   {
     echo "Email não fornecido.";
   }
-?>
+  $s_name = session_name();
+  $offset     = 3*60*60;                              // converte 3 houras para segundos
+  $dateFormat = "d/m/Y h:i:s";                        // formata dia/mês/ano hora:minuto:segundo
+  $timeNdate  = gmdate($dateFormat, time()-$offset);  // Data Hora na timezone Brasil/BSB
+
+  if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 60)) {
+      // último request foi há mais de 1 minuto atrás
+      session_unset();     // libera (unset) todas as variáveis de sessão 
+      session_destroy();   // destrói (destroy) todos os dados de sessão do atual usuário
+      // A sessão acabou de expirar
+      // Esse é o momento para desviar a página para a "página inicial" ou para a "página de login" do site
+      header('Location: /Callit/screen/login/login.php');
+  }
+  $_SESSION['LAST_ACTIVITY'] = time(); // Atualiza time stamp da última atividade realizada  
+  ?>    
+<script>
+function updateTime() {
+      const timeElement = document.getElementById('time');
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      timeElement.textContent = timeString;
+
+}
+
+setInterval(updateTime, 1000); // Atualiza a cada segundo
+updateTime(); // Chama a função para exibir o tempo atual imediatamente
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
