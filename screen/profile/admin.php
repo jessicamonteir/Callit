@@ -100,7 +100,7 @@ include("../../conn.php");
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="#services">Catálogos</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php#services">Catálogos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/screen/services/services.php">Serviços</a>
@@ -139,18 +139,20 @@ include("../../conn.php");
                     ?> 
                 </a>
                 <?php
-                } elseif(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["ADMIN"]) {
-                ?>
-                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/main.php">
+                }elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["ADMIN"]){
+                  ?>
+                  <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/session_out.php">
                   SAIR
+                </a>
+                  <?php
+                } else {
+                ?>
+                <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
+                  Entrar
                 </a>
                 <?php
                 }
-                $_SESSION["email"] = null;
-                $_SESSION["PRESTADOR"] = null;
-                $_SESSION["id"] = null;
-                session_destroy();
-                ?>
+              ?>
                     </i>
                 </a>
               </li>
@@ -185,11 +187,11 @@ if ($result->num_rows > 0) {
 
     echo '<tr>';
     echo '<td>' . htmlspecialchars($IdUsuario) . '</td>';
-    echo '<td>' . htmlspecialchars($nomeCliente) . '</td>';
+    echo '<td><a href="/Callit/screen/profile/perfilcliente.php?email=' . urlencode($emailCliente) . '">' . htmlspecialchars($nomeCliente) . '</a></td>';
     echo '<td>' . htmlspecialchars($emailCliente) . '</td>';
     echo '<td>' . htmlspecialchars($telefoneCliente) . '</td>';
     echo '<td><img src="data:image/png;base64,' . base64_encode($fotoCliente) . '" alt="Foto de ' . htmlspecialchars($nomeCliente) . '" width="50" height="50"></td>';
-    echo '<td><button class="delete-btn" onclick="confirmDelete(' . $IdUsuario . ')">Excluir</button></td>';
+    echo '<td><button class="delete-btn" onclick="confirmDelete(' . $emailCliente . ',0)">Excluir</button></td>';
     echo '</tr>';
   }
   
@@ -222,15 +224,15 @@ if ($result->num_rows > 0) {
     $telefonePrestador = $row["Telefone"];
     $servicoPrestado = $row["Servico_Prestado"];
     $fotoPrestador = $row["Foto_Perfil"];
-
+    
     echo '<tr>';
     echo '<td>' . htmlspecialchars($IdPrestador) . '</td>';
-    echo '<td>' . htmlspecialchars($nomePrestador) . '</td>';
+    echo '<td><a href="/Callit/screen/profile/perfilprestador.php?email=' . urlencode($emailPrestador) . '">' . htmlspecialchars($nomePrestador) . '</a></td>';
     echo '<td>' . htmlspecialchars($emailPrestador) . '</td>';
     echo '<td>' . htmlspecialchars($telefonePrestador) . '</td>';
     echo '<td>' . htmlspecialchars($servicoPrestado) . '</td>';
     echo '<td><img src="data:image/png;base64,' . base64_encode($fotoPrestador) . '" alt="Foto de ' . htmlspecialchars($nomePrestador) . '" width="50" height="50"></td>';
-    echo '<td><button class="delete-btn" onclick="confirmDelete(' . $IdPrestador . ')">Excluir</button></td>';
+    echo '<td><button class="delete-btn" onclick="confirmDelete(' . $IdPrestador . ',1)">Excluir</button></td>';
     echo '</tr>';
   }
   
@@ -287,9 +289,9 @@ if($result->num_rows > 0){
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+cg2kT0vZ6XvvvNUoz5pQiyNU6z3C" crossorigin="anonymous"></script>
 <script>
-function confirmDelete(id) {
+function confirmDelete(id,t) {
   if (confirm("Você realmente deseja excluir este usuário?")) {
-    window.location.href = "deleteAccount.php?id=" + id;
+    window.location.href = "deleteAccount.php?id=" + id +"&t="+t;
   }
 }
 

@@ -268,8 +268,8 @@
                                                         placeholder="Seu telefone" id="sigtelUser"
                                                         autocomplete="off"
                                                         required
-                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
-                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"
+                                                        pattern='/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/'
+                                                        title="Número de telefone precisa ser no formato (99) 99999-9999"
                                                         >
                                                     <i class="fa-solid fa-phone"></i>
                                                 </div>
@@ -316,8 +316,8 @@
                                                         placeholder="Seu telefone" id="sigtelPrestador"
                                                         autocomplete="off"
                                                         required
-                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
-                                                        title="Número de telefone precisa ser no formato (99) 9999-9999"
+                                                        pattern='/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/'
+                                                        title="Número de telefone precisa ser no formato (99) 99999-9999"
                                                         >
                                                     <i class="fa-solid fa-phone"></i>
                                                 </div>

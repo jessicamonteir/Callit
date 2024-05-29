@@ -40,6 +40,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/calendars/calendar-1/assets/css/calendar-1.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 </head>
 <body>
 <?php 
@@ -259,7 +261,7 @@
                                   ?>
 
                                   <p>Telefone: <input type="text" placeholder="<?php echo $telefone ?>" value="<?php echo $telefone ?>" id="telUser" name="telUser" autocomplete="off"
-                                                        pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})"
+                                                        pattern='/^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/'
                                                         title="Número de telefone precisa ser no formato (99) 9999-9999"></p><br/>
                                   <?php
                               }
@@ -484,5 +486,11 @@
         senhaNovaInput.required = false;
       }
   }
+</script>
+<script>
+    $(document).ready(function(){
+        $('#telUser').mask("(00) 00000-0000");
+    });
+
 </script>
 </html>

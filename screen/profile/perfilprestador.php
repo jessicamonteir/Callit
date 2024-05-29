@@ -43,6 +43,8 @@
   }
   elseif (($_SESSION['PRESTADOR'] == TRUE)){
   }
+  elseif (($_SESSION['ADMIN'] == TRUE)){
+  }
   else{
     header('Location: /Callit/screen/login/login.php');
     exit;}
@@ -98,7 +100,7 @@
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="#services">Catálogos</a>
+                <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/main.php#services">Catálogos</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-2 text-uppercase navegacao linkskheader" href="/Callit/screen/services/services.php">Serviços</a>
@@ -107,7 +109,7 @@
             <ul class="navbar-nav ms-auto ">
               <li class="nav-item">
               <?php 
-                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && !$_SESSION["PRESTADOR"]) {
+                if(isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["USUARIO"]) {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/perfilcliente.php?email=<?php echo urlencode($_SESSION["email"]); ?>">
                 <?php
@@ -137,6 +139,12 @@
                     ?> 
                 </a>
                 <?php
+                }elseif (isset($_SESSION["email"]) && $_SESSION["email"] !== null && $_SESSION["email"] !== "" && $_SESSION["ADMIN"]){
+                  ?>
+                  <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/profile/admin.php">
+                    Gerenciar Perfis
+                  </a>
+                  <?php
                 } else {
                 ?>
                 <a class="nav-link mx-2 text-uppercase navegacao" href="/Callit/screen/login/login.php">
@@ -333,7 +341,7 @@
             <div class="row" id="linha">
                 <div class="col-md-4">
                     <div class="profile-work">
-                        <p id="cont" style="margin-top:-40px">Contato:</p>
+                        <p  id="cont" style="margin-top:-40px">Contato:</p>
                         <?php
                         if ($email==$_SESSION["email"]){
                         ?>
@@ -362,7 +370,7 @@
                         ?>
                         </div>
                         <p>Email: <?php echo $email;?></p>
-                        <div class="container">
+                        <!--<div class="container">
                           <div class="chatbox">
                               <div class="chatbox__support">
                                   <div class="chatbox__header">
@@ -399,7 +407,7 @@
                                   <button class="btn-chat">Chat</button>
                               </div>
                           </div>
-                      </div>
+                      </div> -->
               
               
                         
